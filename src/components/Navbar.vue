@@ -25,8 +25,8 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>Chunvira Ly</v-list-item-title>
-            <v-list-item-subtitle class="caption">STUDENT</v-list-item-subtitle>
+            <v-list-item-title>{{user.name}}</v-list-item-title>
+            <v-list-item-subtitle class="caption text-uppercase">{{user.role}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
@@ -53,7 +53,11 @@ export default {
       items: [
         { text: "Home", route: "/" },
         { text: "Device Manager", route: "/device-manager" }
-      ]
+      ],
+      user: {
+        name: "Ly Chunvira",
+        role: "Student"
+      }
     };
   }
 };
