@@ -38,8 +38,8 @@
     </v-row>
     <v-row class="mt-8">
       <h1 class="title">
-        <span class="font-weight-regular">Previous videos by</span>
-        lecturers
+        <span class="font-weight-regular">Videos from the</span>
+        community
       </h1>
       <v-spacer></v-spacer>
       <v-btn text small>Show more</v-btn>

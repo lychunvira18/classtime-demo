@@ -1,15 +1,16 @@
 <template>
   <nav>
-    <v-app-bar height="50" class="black lighten-2 pr-2" dark flat app clipped-left>
+    <v-app-bar dense class="black lighten-2 pr-2" dark flat app clipped-left>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
         <span class="font-weight-thin">Class</span>
         <span class="font-weight-bold">Time</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <!-- <v-btn icon>
         <v-icon>mdi-record</v-icon>
-      </v-btn>
+      </v-btn>-->
+      <StartStream />
       <v-btn icon>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
@@ -45,6 +46,8 @@
 </template>
 
 <script>
+import StartStream from "../components/StartStream";
+
 export default {
   data: () => {
     return {
@@ -59,6 +62,9 @@ export default {
         role: "Student"
       }
     };
+  },
+  components: {
+    StartStream
   }
 };
 </script>
