@@ -11,8 +11,9 @@
       </v-card-title>
       <v-card-text>
         <v-form ref="form">
-          <v-text-field label="Title" color="black"></v-text-field>
+          <v-text-field label="Title" color="black" required></v-text-field>
           <v-text-field
+            required
             label="Tags"
             color="black"
             :value="tags.forEach(tag => tag.value ? tag.name : '')"
@@ -77,12 +78,39 @@
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="black darken-1" text @click="select_classes = false">Cancel</v-btn>
-                    <v-btn
-                      class="font-weight-black"
-                      color="black darken-1"
-                      text
-                      @click="start_stream =select_class = select_classes = false; "
-                    >{{classes_cast.filter(classroom => (classroom.value == true)).length > 0 ? 'Yes' : 'No'}}</v-btn>
+                    <v-dialog v-model="is_conference" max-width="500px">
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          class="font-weight-black"
+                          color="black darken-1"
+                          text
+                          v-on="on"
+                        >{{classes_cast.filter(classroom => (classroom.value == true)).length > 0 ? 'Yes' : 'No'}}</v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span class="title font-weight-regular">Is this a conference call?</span>
+                        </v-card-title>
+                        <v-card-text>
+                          <p class="mt-4">
+                            Click
+                            <span class="font-weight-bold">YES</span> for a conference call and
+                            <span class="font-weight-bold">NO</span> for just streaming.
+                          </p>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            text
+                            @click="start_stream = select_class = select_classes = is_conference = false"
+                          >Yes</v-btn>
+                          <v-btn
+                            text
+                            @click="start_stream = select_class = select_classes = is_conference = false"
+                          >No</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -124,7 +152,8 @@ export default {
       { name: "KIT Campus II - Classroom 2", value: false },
       { name: "KIT Campus II - Classroom 3", value: false }
     ]
-  })
+  }),
+  is_conference: false
 };
 </script>
 <style>
