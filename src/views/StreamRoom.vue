@@ -1,6 +1,5 @@
 <template>
-	<v-app>
-		<!-- <v-btn @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
+  <!-- <v-btn @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
 			<v-icon :class="$vuetify.theme.dark ? 'd-flex' : 'd-none'"
 				>mdi-white-balance-sunny</v-icon
 			>
@@ -9,7 +8,7 @@
 			>
 		</v-btn> -->
 
-		<v-simple-table>
+  <!-- <v-simple-table>
 			<tr>
 				<td style="width: 75%">
 					<StreamBox />
@@ -18,23 +17,32 @@
 					<ChatBox />
 				</td>
 			</tr>
-		</v-simple-table>
-	</v-app>
+		</v-simple-table> -->
+  <v-container>
+    <v-row>
+      <v-col cols="9">
+        <StreamBox />
+      </v-col>
+      <v-col cols="3">
+        <ChatBox />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import ChatBox from '../components/ChatBox'
-import StreamBox from '../components/StreamBox'
+import ChatBox from "../components/ChatBox";
+import StreamBox from "../components/StreamBox";
 // import BlankLayout from "../layouts/Blank";
 
 export default {
-	name: 'stream',
-	components: {
-		ChatBox,
-		StreamBox
-	}
-	//   created() {
-	//     this.$emit("update:layout", BlankLayout);
-	//   }
-}
+  name: "stream",
+  components: {
+    ChatBox,
+    StreamBox
+  }
+  //   created() {
+  //     this.$emit("update:layout", BlankLayout);
+  //   }
+};
 </script>

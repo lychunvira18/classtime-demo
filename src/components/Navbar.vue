@@ -26,14 +26,21 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{user.name}}</v-list-item-title>
-            <v-list-item-subtitle class="caption text-uppercase">{{user.role}}</v-list-item-subtitle>
+            <v-list-item-title>{{ user.name }}</v-list-item-title>
+            <v-list-item-subtitle class="caption text-uppercase">{{
+              user.role
+            }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
         <v-list dense class="mt-3">
           <v-list-item-group v-model="item" color="primary">
-            <v-list-item v-for="(item, i) in items" :key="i" router :to="item.route">
+            <v-list-item
+              v-for="(item, i) in items"
+              :key="i"
+              router
+              :to="item.route"
+            >
               <v-list-item-content>
                 <v-list-item-title v-text="item.text"></v-list-item-title>
               </v-list-item-content>

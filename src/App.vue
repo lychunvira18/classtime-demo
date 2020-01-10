@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar v-if="$route.name!=='login'" />
+    <Navbar v-if="$route.name !== 'login'" />
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -22,3 +22,10 @@ export default {
   })
 };
 </script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
