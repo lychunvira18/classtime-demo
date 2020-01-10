@@ -45,14 +45,14 @@
             dense
             color="grey darken-2"
             v-model="is_conference"
-            label="Conference call toggle"
+            label="Conference call"
           ></v-switch>
           <v-switch
             class="pa-0 ma-0"
             dense
             color="grey darken-2"
             v-model="is_private"
-            label="Private stream toggle"
+            label="Private stream"
           ></v-switch>
         </v-form>
       </v-card-text>
