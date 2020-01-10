@@ -12,23 +12,48 @@
       <v-card-text>
         <v-form ref="form">
           <v-text-field label="Title" color="black" required></v-text-field>
-          <v-text-field
-            required
+          <!-- <v-text-field required label="Tags" color="black" :value="tag_list.toString()"></v-text-field> -->
+          <v-combobox
             label="Tags"
             color="black"
-            :value="tags.forEach(tag => tag.value ? tag.name : '')"
-          ></v-text-field>
+            v-model="tag_list"
+            :items="tags"
+            chips
+            multiple
+            hide-selected
+          >
+            <template v-slot:selection="data">
+              <v-chip
+                :key="JSON.stringify(data.item)"
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                :disabled="data.disabled"
+                @click:close="data.parent.selectItem(data.item)"
+              >
+                <span class="pr-2">{{ data.item }}</span>
+                <v-icon small @click="data.parent.selectItem(data.item)">mdi-close</v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
           <p class="overline my-3">Suggested Tags:</p>
-          <div>
-            <v-chip
-              class="mr-2 mb-2"
-              :class="tag.value ? 'black white--text' : ''"
-              v-for="tag in tags"
-              @click="tag.value=!tag.value"
-              v-model="tag.value"
-              :key="tag.name"
-            >#{{tag.name}}</v-chip>
-          </div>
+          <v-chip-group column multiple active-class="primary--text" v-model="tag_list">
+            <v-chip v-for="tag in tags" :key="tag" :value="tag">{{ tag }}</v-chip>
+          </v-chip-group>
+
+          <v-switch
+            class="pa-0 mt-6"
+            dense
+            color="grey darken-2"
+            v-model="is_conference"
+            label="Conference call toggle"
+          ></v-switch>
+          <v-switch
+            class="pa-0 ma-0"
+            dense
+            color="grey darken-2"
+            v-model="is_private"
+            label="Private stream toggle"
+          ></v-switch>
         </v-form>
       </v-card-text>
       <v-card-actions>
@@ -78,39 +103,11 @@
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="black darken-1" text @click="select_classes = false">Cancel</v-btn>
-                    <v-dialog v-model="is_conference" max-width="500px">
-                      <template v-slot:activator="{ on }">
-                        <v-btn
-                          class="font-weight-black"
-                          color="black darken-1"
-                          text
-                          v-on="on"
-                        >{{classes_cast.filter(classroom => (classroom.value == true)).length > 0 ? 'Yes' : 'No'}}</v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span class="title font-weight-regular">Is this a conference call?</span>
-                        </v-card-title>
-                        <v-card-text>
-                          <p class="mt-4">
-                            Click
-                            <span class="font-weight-bold">YES</span> for a conference call and
-                            <span class="font-weight-bold">NO</span> for just streaming.
-                          </p>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn
-                            text
-                            @click="start_stream = select_class = select_classes = is_conference = false"
-                          >Yes</v-btn>
-                          <v-btn
-                            text
-                            @click="start_stream = select_class = select_classes = is_conference = false"
-                          >No</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
+                    <v-btn
+                      color="black darken-1"
+                      text
+                      @click="start_stream = select_class = select_classes = false"
+                    >{{classes_cast.filter(classroom => (classroom.value == true)).length > 0 ? 'Yes' : 'No'}}</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -124,14 +121,15 @@
 <script>
 export default {
   data: () => ({
+    tag_list: [],
     start_stream: false,
     tags: [
-      { name: "web-apps", value: false },
-      { name: "design-patterns", value: false },
-      { name: "batch6", value: false },
-      { name: "html", value: false },
-      { name: "batch8", value: false },
-      { name: "batch7", value: false }
+      "#web-apps",
+      "#design-patterns",
+      "#batch6",
+      "#html",
+      "#batch8",
+      "#batch7"
     ],
     value: false,
     select_class: false,
@@ -153,7 +151,8 @@ export default {
       { name: "KIT Campus II - Classroom 3", value: false }
     ]
   }),
-  is_conference: false
+  is_conference: false,
+  is_private: false
 };
 </script>
 <style>
