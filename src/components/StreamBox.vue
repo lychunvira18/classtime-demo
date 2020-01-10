@@ -1,7 +1,7 @@
 <template>
 	<v-app>
 		<div id="meet" class="mt-2 stream">
-			<v-card v-if="!hasLoaded" class="loading-message" flat color="#0275d8">
+			<v-card v-if="!hasLoaded" class="loading-message" flat color="#000000">
 				<v-row justify="space-around">
 					<v-card-title class="header justify-space-around white--text"
 						>The Stream is Loading!! Please Wait!!</v-card-title
@@ -60,8 +60,8 @@ export default {
 <style scoped>
 .stream {
 	height: 600px;
-	background-color: #0275d8;
-	border: 5px solid #0275d8;
+	background-color: #000000;
+	border: 5px solid #000000;
 }
 .loading-message {
 	position: relative;

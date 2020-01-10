@@ -1,13 +1,13 @@
 <template>
 	<v-app>
-		<v-btn @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
+		<!-- <v-btn @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
 			<v-icon :class="$vuetify.theme.dark ? 'd-flex' : 'd-none'"
 				>mdi-white-balance-sunny</v-icon
 			>
 			<v-icon :class="$vuetify.theme.dark ? 'd-none' : 'd-flex'"
 				>mdi-moon-waning-crescent</v-icon
 			>
-		</v-btn>
+		</v-btn> -->
 
 		<v-simple-table>
 			<tr>

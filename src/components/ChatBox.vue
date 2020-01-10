@@ -1,7 +1,7 @@
 <template>
 	<v-app>
 		<v-card class="my-2" elevation="10">
-			<v-system-bar color="primary" dark>
+			<v-system-bar color="#000000" dark>
 				<v-spacer></v-spacer>
 
 				<v-icon>mdi-window-minimize</v-icon>
