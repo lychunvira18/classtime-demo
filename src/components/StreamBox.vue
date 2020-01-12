@@ -3,16 +3,12 @@
     <div id="meet" class="stream">
       <v-card v-if="!hasLoaded" class="loading-message" flat color="#000000">
         <v-row justify="space-around">
-          <v-card-title class="header justify-space-around white--text"
-            >The stream is loading. Please wait...</v-card-title
-          >
+          <v-card-title
+            class="header justify-space-around white--text"
+          >The stream is loading. Please wait...</v-card-title>
         </v-row>
         <v-row justify="space-around">
-          <v-progress-circular
-            indeterminate
-            class="mb-6"
-            color="white"
-          ></v-progress-circular>
+          <v-progress-circular indeterminate class="mb-6" color="white"></v-progress-circular>
         </v-row>
       </v-card>
     </div>
