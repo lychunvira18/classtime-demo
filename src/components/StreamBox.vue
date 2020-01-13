@@ -33,7 +33,8 @@ export default {
   // },
   data() {
     return {
-      hasLoaded: false
+      hasLoaded: false,
+      streamName: this.$route.params.streamName
     };
   },
   created() {
@@ -44,7 +45,7 @@ export default {
     const meet = new JitsiMeet("https://meet.jit.si");
     meet.on("ready", () => {
       this.hasLoaded = true;
-      const conference = meet.join("Darwin", "#meet", options);
+      const conference = meet.join(`${this.streamName}`, "#meet", options);
       conference.on("joined", () => {
         // console.log("We are in!");
       });

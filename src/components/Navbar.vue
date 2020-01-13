@@ -59,7 +59,7 @@ export default {
       item: 1,
       items: [
         { text: "Home", route: "/home" },
-        { text: "Device Manager", route: "/device-manager" }
+        { text: "Device Manager", route: "/devices" }
       ],
       user: {
         name: "Ly Chunvira",

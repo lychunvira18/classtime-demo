@@ -25,13 +25,13 @@ const routes = [
 		component: About
 	},
 	{
-		path: '/stream',
+		path: '/stream/:streamName',
 		name: 'stream',
 		component: StreamRoom
 	},
 	{
-		path: '/device-manager',
-		name: 'device-manager',
+		path: '/devices',
+		name: 'devices',
 		component: DeviceManager
 	}
 ]

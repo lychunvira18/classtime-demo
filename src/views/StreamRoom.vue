@@ -6,7 +6,7 @@
 			<v-icon :class="$vuetify.theme.dark ? 'd-none' : 'd-flex'"
 				>mdi-moon-waning-crescent</v-icon
 			>
-		</v-btn> -->
+  </v-btn>-->
 
   <!-- <v-simple-table>
 			<tr>
@@ -17,8 +17,8 @@
 					<ChatBox />
 				</td>
 			</tr>
-		</v-simple-table> -->
-  <v-container>
+  </v-simple-table>-->
+  <v-card class="mx-2">
     <v-row>
       <v-col cols="9">
         <StreamBox />
@@ -27,7 +27,7 @@
         <ChatBox />
       </v-col>
     </v-row>
-  </v-container>
+  </v-card>
 </template>
 
 <script>

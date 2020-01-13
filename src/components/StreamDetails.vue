@@ -5,14 +5,16 @@
         <v-container>
           <v-row class="px-3">
             <v-col cols="10" class="text-left">
-              <div class="headline">Introduction to Design Patterns</div>
+              <div class="headline">{{this.streamName}}</div>
               <div class="body-2 font-weight-light">Vignesh Manoharan</div>
             </v-col>
             <v-col cols="2" class="d-flex justify-end align-center">
               <div class="mx-2">
                 <v-icon color="red lighten-2">mdi-eye</v-icon>
               </div>
-              <div><span class="red--text text--lighten-2">34</span></div>
+              <div>
+                <span class="red--text text--lighten-2">34</span>
+              </div>
             </v-col>
           </v-row>
         </v-container>
@@ -37,13 +39,15 @@
           </v-row>
           <v-row>
             <v-col cols="1">
-              <span class="subtitle-1">Tags: </span>
+              <span class="subtitle-1">Tags:</span>
             </v-col>
             <v-col cols="11">
               <span>
-                <v-chip dark class="mr-2" v-for="tag in tags" :key="tag">{{
+                <v-chip dark class="mr-2" v-for="tag in tags" :key="tag">
+                  {{
                   tag
-                }}</v-chip>
+                  }}
+                </v-chip>
               </span>
             </v-col>
           </v-row>
@@ -56,16 +60,19 @@
 <script>
 export default {
   name: "streamdetails",
-  data: () => ({
-    tags: [
-      "#web-apps",
-      "#design-patterns",
-      "#batch6",
-      "#html",
-      "#batch8",
-      "#batch7"
-    ]
-  })
+  data() {
+    return {
+      streamName: this.$route.params.streamName,
+      tags: [
+        "#web-apps",
+        "#design-patterns",
+        "#batch6",
+        "#html",
+        "#batch8",
+        "#batch7"
+      ]
+    };
+  }
 };
 </script>
 
