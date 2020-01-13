@@ -10,10 +10,38 @@
       <v-expansion-panels>
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <div class="headline">{{device.name}}</div>
+            <div class="headline">
+              <v-btn icon @click.stop="editDevice = true">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+              <v-dialog v-model="editDevice" width="500px">
+                <v-card>
+                  <v-card-title class="headline grey lighten-2" primary-title>Edit Device</v-card-title>
+
+                  <v-container class="mx-auto">
+                    <v-text-field label="Enter New Device Name"></v-text-field>
+                  </v-container>
+
+                  <v-divider></v-divider>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn outlined text @click.stop="editDevice = false">Cancel</v-btn>
+                    <v-btn outlined text @click.stop="editDevice = false">Confirm</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              {{device.name}}
+            </div>
             <v-spacer></v-spacer>
-            <div v-if="device.isOnline" class="green--text font-weight-bold body-1">Online</div>
-            <div v-if="!device.isOnline" class="red--text font-weight-bold body-1">Offline</div>
+            <div
+              v-if="device.isOnline"
+              class="green--text text-right font-weight-bold body-1"
+            >Online</div>
+            <div
+              v-if="!device.isOnline"
+              class="red--text text-right font-weight-bold body-1"
+            >Offline</div>
           </v-expansion-panel-header>
 
           <v-divider></v-divider>
@@ -35,6 +63,7 @@ export default {
   name: "device-manager",
   data() {
     return {
+      editDevice: false,
       devices: [
         {
           id: 1,
