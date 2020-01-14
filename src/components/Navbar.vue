@@ -63,7 +63,7 @@ export default {
       ],
       user: {
         name: "Ly Chunvira",
-        role: "Student"
+        role: "Lecturer"
       }
     };
   },
