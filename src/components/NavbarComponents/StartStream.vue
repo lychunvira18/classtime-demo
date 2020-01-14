@@ -75,10 +75,8 @@
         >
         <v-btn
           color="black darken-1 font-weight-bold"
-          text
-          @click="start_stream = false"
-          >Continue</v-btn
-        >
+          text @click="startStream()"
+          >Continue</v-btn>
 
         <!-- <v-dialog v-model="select_class" max-width="780px">
           <template v-slot:activator="{ on }">
@@ -140,7 +138,7 @@
   </v-dialog>
 </template>
 <script>
-import backend from "../Service"
+import backend from "../../Service"
 export default {
   data: () => ({
     tag_list: [],
@@ -181,6 +179,9 @@ export default {
   methods : {
     async startStream() {
       const stream = await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
+      
+      console.log(stream)
+      this.start_stream = false
     }
   }
 };

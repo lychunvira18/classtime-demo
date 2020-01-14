@@ -18,25 +18,25 @@ class Service {
   //     })
   // }
 
-  // Get UserInfo
-  static getUserInfo() {
-    const token = cookie.getCookie("auth-token"); //window.localStorage.getItem("auth-token")
-    return axios.get(`${url}users/user`, {
-      params: {},
-      headers: { "auth-token": token }
-    });
-  }
-
-
     // Get UserInfo
-    static getUserInfo(){
-        const token = cookie.getCookie("auth-token") //window.localStorage.getItem("auth-token")
-        return axios.get(`${url}users/user`,{ params:{}, headers: { 'auth-token': token } })
+    static getUserInfo() {
+        const token = cookie.getCookie("auth-token"); //window.localStorage.getItem("auth-token")
+        return axios.get(`${url}users/user`, {
+        params: {},
+        headers: { "auth-token": token }
+        });
+    }
+    
+    // Start Stream
+    static getCurrentlyStreaming(){
+        const token = cookie.getCookie("auth-token")
+        return axios.get(`${url}users/getCurrentlyStream`,{ params:{}, headers:{ 'auth-token': token }})
     }
 
     // Start Stream
     static startStream(streamTitle,description,isPrivate,password){
         const token = cookie.getCookie("auth-token")
+        console.log(streamTitle+description+isPrivate+password)
         return axios.post(`${url}users/startStream`,{
             streamTitle,
             description,
