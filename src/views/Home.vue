@@ -10,7 +10,7 @@
     </v-row>
     <v-row>
       <v-col v-for="stream in streams" :key="stream.id" :cols="4">
-        <v-card dark>
+        <v-card dark :to="`/stream/${stream.title}`">
           <v-img :src="stream.img_url" class="white--text align-end" height="240px">
             <v-card-title v-text="stream.title"></v-card-title>
             <v-card-subtitle v-text="stream.author"></v-card-subtitle>
@@ -28,7 +28,7 @@
     </v-row>
     <v-row>
       <v-col v-for="video in videos" :key="video.id" :cols="3">
-        <v-card dark>
+        <v-card dark :to="`/stream/${video.title}`">
           <v-img :src="video.img_url" class="white--text align-end" height="210px">
             <v-card-title v-text="video.title"></v-card-title>
             <v-card-subtitle v-text="video.author"></v-card-subtitle>
@@ -46,7 +46,7 @@
     </v-row>
     <v-row>
       <v-col v-for="video in videos" :key="video.id" :cols="3">
-        <v-card dark>
+        <v-card dark :to="`/stream/${video.title}`">
           <v-img :src="video.img_url" class="white--text align-end" height="210px">
             <v-card-title v-text="video.title"></v-card-title>
             <v-card-subtitle v-text="video.author"></v-card-subtitle>
@@ -58,52 +58,11 @@
 </template>
 
 <script>
+import backend from "../Service"
 export default {
   data: () => {
     return {
       streams: [
-        {
-          id: 1,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 2,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 3,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 4,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 5,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 6,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        }
       ],
       videos: [
         {
@@ -136,6 +95,24 @@ export default {
         }
       ]
     };
+  },
+  methods : {
+    async getcurrentlyStreaming(){
+      const streams = await backend.getCurrentlyStreaming();
+      streams.data.forEach(stream => {
+        this.streams.push({
+          id : stream.streamCode,
+          title : stream.streamTitle,
+          description : stream.description,
+          isPrivate : true,
+          author : stream.ownerName,
+          date : stream.date
+        })
+      });
+    }
+  },
+  created(){
+    this.getcurrentlyStreaming()
   }
 };
 </script>

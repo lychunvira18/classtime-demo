@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import ChatBox from "../components/ChatBox";
-import StreamBox from "../components/StreamBox";
+import ChatBox from "../components/StreamComponents/ChatBox";
+import StreamBox from "../components/StreamComponents/StreamBox";
 // import BlankLayout from "../layouts/Blank";
 
 export default {
