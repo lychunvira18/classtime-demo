@@ -30,6 +30,7 @@
 							</v-card>
 						</v-dialog>
 
+<<<<<<< HEAD
 						<div class="d-flex justify-lg-space-between pa-4">
 							<v-card flat>
 								<span class="headline">
@@ -50,6 +51,24 @@
 							</v-card>
 						</div>
 						<!-- <div class="headline">{{device.name}}</div>
+=======
+            <div class="d-flex justify-lg-space-between pa-4">
+              <v-card flat>
+                <span class="headline">
+                  <v-btn icon @click.stop="editDevice = true" v-if="user.role === 'Admin'">
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-btn>
+                  {{device.name}}
+                </span>
+              </v-card>
+              <v-card flat>
+                <span
+                  :class="(device.isOnline ? 'green--text' : 'red--text') + ' font-weight-bold body-1 text-uppercase'"
+                >{{device.isOnline ? 'Online' : 'Offline'}}</span>
+              </v-card>
+            </div>
+            <!-- <div class="headline">{{device.name}}</div>
+>>>>>>> e2d0ecbd47b2d52521d536a65fcae72546f35eb4
 
             <div
               :class="(device.isOnline ? 'green--text' : 'red--text') + ' font-weight-bold body-1'"
@@ -88,6 +107,7 @@
 import io from 'socket.io-client'
 
 export default {
+<<<<<<< HEAD
 	name: 'device-manager',
 	data() {
 		return {
@@ -109,3 +129,46 @@ export default {
 	}
 }
 </script>
+=======
+  name: "device-manager",
+  data() {
+    return {
+      editDevice: false,
+      devices: [
+        {
+          id: 1,
+          name: "Device 1",
+          isOnline: true,
+          isConnected: true,
+          connectedDevice: "Camera 1",
+          isStreaming: true,
+          currentlyStreaming: "Design Patterns"
+        },
+        {
+          id: 2,
+          name: "Device 2",
+          isOnline: true,
+          isConnected: true,
+          connectedDevice: "Camera 2",
+          isStreaming: false,
+          currentlyStreaming: null
+        },
+        {
+          id: 3,
+          name: "Device 3",
+          isOnline: false,
+          isConnected: false,
+          connectedDevice: null,
+          isStreaming: false,
+          currentlyStreaming: null
+        }
+      ],
+      user: {
+        name: "Ly Chunvira",
+        role: "Lecturer"
+      }
+    };
+  }
+};
+</script>
+>>>>>>> e2d0ecbd47b2d52521d536a65fcae72546f35eb4

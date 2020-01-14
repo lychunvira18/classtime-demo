@@ -8,8 +8,7 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar";
-
+import Navbar from "./components/NavbarComponents/Navbar";
 export default {
   name: "App",
 
@@ -19,7 +18,9 @@ export default {
 
   data: () => ({
     //
-  })
+  }),
+
+  created: () => ({})
 };
 </script>
 
