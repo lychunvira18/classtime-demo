@@ -65,8 +65,13 @@ export default {
         { text: "Device Manager", route: "/devices" }
       ],
       user: {
+<<<<<<< HEAD
+        name: "Ly Chunvira",
+        role: "Lecturer"
+=======
         name: "",
         role: ""
+>>>>>>> 4c168edbf54ecf523412d8c4d0a585a6a2ec8abf
       }
     };
   },

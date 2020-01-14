@@ -31,7 +31,7 @@
             <div class="d-flex justify-lg-space-between pa-4">
               <v-card flat>
                 <span class="headline">
-                  <v-btn icon @click.stop="editDevice = true">
+                  <v-btn icon @click.stop="editDevice = true" v-if="user.role === 'Admin'">
                     <v-icon>mdi-pencil</v-icon>
                   </v-btn>
                   {{device.name}}
@@ -107,7 +107,11 @@ export default {
           isStreaming: false,
           currentlyStreaming: null
         }
-      ]
+      ],
+      user: {
+        name: "Ly Chunvira",
+        role: "Lecturer"
+      }
     };
   }
 };

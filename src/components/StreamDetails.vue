@@ -15,6 +15,11 @@
               <div>
                 <span class="red--text text--lighten-2">34</span>
               </div>
+              <div class="ml-4">
+                <v-btn icon>
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </div>
             </v-col>
           </v-row>
         </v-container>

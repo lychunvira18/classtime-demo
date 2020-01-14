@@ -15,8 +15,7 @@
 
             <v-checkbox
               color="black"
-              v-model="checkbox"
-              :rules="[v => !!v || 'You must agree to continue!']"
+              v-model="login_checkbox"
               label="Remember my password"
               required
               class="mb-5 mt-6"
@@ -33,7 +32,7 @@
 
             <v-checkbox
               color="black"
-              v-model="checkbox"
+              v-model="register_checkbox"
               :rules="[v => !!v || 'You must agree to continue!']"
               label="I agree with the Terms and Conditions."
               required
@@ -58,7 +57,9 @@ export default {
       password : "",
       username : "",
       tab: null,
-      items: ["Login", "Register"]
+      items: ["Login", "Register"],
+      login_checkbox: true,
+      register_checkbox: false
     };
   },
   methods : {

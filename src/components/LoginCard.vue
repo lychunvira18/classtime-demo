@@ -9,7 +9,7 @@
               <span class="font-weight-bold">Time</span>
             </h1>
             <h2 class="subtitle-2 mt-4 mb-12">Lecture streaming service</h2>
-            <h3 class="overline">A FLIB - ZEAL JOINT PROJECT</h3>
+            <h3 class="overline">A FLIP - ZEAL JOINT PROJECT</h3>
           </v-img>
         </v-card>
       </v-col>
