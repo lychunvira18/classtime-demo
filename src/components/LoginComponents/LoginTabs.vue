@@ -10,8 +10,8 @@
       <v-tab-item style="height:400px" v-for="item in items" :key="item">
         <v-container class="px-12" v-if="item=='Login'">
           <v-form ref="form">
-            <v-text-field label="Username"></v-text-field>
-            <v-text-field label="Password" type="password" append-icon="mdi-eye"></v-text-field>
+            <v-text-field label="Username" v-model="username"></v-text-field>
+            <v-text-field label="Password" v-model="password" type="password" append-icon="mdi-eye"></v-text-field>
 
             <v-checkbox
               color="black"
@@ -22,7 +22,7 @@
               class="mb-5 mt-6"
             ></v-checkbox>
 
-            <v-btn color="black" dark block height="50" router :to="'/home'">Login</v-btn>
+            <v-btn color="black" dark block height="50" @click="login()">Login</v-btn>
           </v-form>
         </v-container>
         <v-container class="px-12" v-else>
@@ -49,12 +49,27 @@
 </template>
 
 <script>
+import backend from "../../Service";
+import auth from "../../auth";
+import synclog from '../../synclog';
 export default {
   data() {
     return {
+      password : "",
+      username : "",
       tab: null,
       items: ["Login", "Register"]
     };
+  },
+  methods : {
+    async login() {
+      const message = await backend.login(this.username, this.password)
+      alert(message.message)
+    } 
+  },
+  created(){
+    auth();
+    synclog
   }
 };
 </script>
