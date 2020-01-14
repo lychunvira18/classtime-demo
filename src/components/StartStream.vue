@@ -11,8 +11,8 @@
       </v-card-title>
       <v-card-text>
         <v-form ref="form">
-          <v-text-field label="Title" color="black" required></v-text-field>
-          <v-text-field label="Description" color="black" required></v-text-field>
+          <v-text-field label="Title" color="black" v-model="streamTitle" required></v-text-field>
+          <v-text-field label="Description" color="black" v-model="description" required></v-text-field>
           <!-- <v-text-field required label="Tags" color="black" :value="tag_list.toString()"></v-text-field> -->
           <v-combobox
             label="Tags"
@@ -55,7 +55,7 @@
             v-model="is_private"
             label="Private stream"
           ></v-switch>
-          <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
+          <v-text-field label="Password" v-model="password" color="black" required v-if="is_private"></v-text-field>
           <!-- <div v-else></div> -->
         </v-form>
       </v-card-text>
@@ -124,6 +124,7 @@
   </v-dialog>
 </template>
 <script>
+import backend from "../Service"
 export default {
   data: () => ({
     tag_list: [],
@@ -156,8 +157,16 @@ export default {
       { name: "KIT Campus II - Classroom 3", value: false }
     ],
     is_conference: false,
-    is_private: false
-  })
+    streamTitle : "",
+    description : "",
+    is_private: false,
+    password : "",
+  }),
+  methods : {
+    async startStream() {
+      const stream = await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
+    }
+  }
 };
 </script>
 <style>

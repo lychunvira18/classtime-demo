@@ -26,23 +26,34 @@ class Service{
         return axios.get(`${url}users/user`,{ params:{}, headers: { 'auth-token': token } })
     }
 
-    // Create a new class for the current user
-    static createClass(classroomName){
-        const token = cookie.getCookie("auth-token") //window.localStorage.getItem("auth-token")
-        if (classroomName != null && classroomName != ""){
-            return axios.post(`${url}users/createclass`,{
-                classroomName
-            },{ params:{}, headers: { 'auth-token': token } })
-        }
+    // Start Stream
+    static startStream(streamTitle,description,isPrivate,password){
+        const token = cookie.getCookie("auth-token")
+        return axios.post(`${url}users/startStream`,{
+            streamTitle,
+            description,
+            isPrivate,
+            password
+        },{ params:{}, headers:{ 'auth-token': token }})
     }
 
-    // To join class
-    static joinClass(code){
-        const token = cookie.getCookie("auth-token") //window.localStorage.getItem("auth-token")
-        return axios.post(`${url}users/joinclass`, {
-            code
-        },{ params:{}, headers: { 'auth-token': token } })
-    }
+    // // Create a new class for the current user
+    // static createClass(classroomName){
+    //     const token = cookie.getCookie("auth-token") //window.localStorage.getItem("auth-token")
+    //     if (classroomName != null && classroomName != ""){
+    //         return axios.post(`${url}users/createclass`,{
+    //             classroomName
+    //         },{ params:{}, headers: { 'auth-token': token } })
+    //     }
+    // }
+
+    // // To join class
+    // static joinClass(code){
+    //     const token = cookie.getCookie("auth-token") //window.localStorage.getItem("auth-token")
+    //     return axios.post(`${url}users/joinclass`, {
+    //         code
+    //     },{ params:{}, headers: { 'auth-token': token } })
+    // }
 
     // Post Data for signing up
     static async signUp(email,pwd,name){
