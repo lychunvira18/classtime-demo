@@ -15,7 +15,7 @@
         <v-icon>mdi-bell</v-icon>
       </v-btn>
       <v-btn icon>
-        <v-icon>mdi-exit-to-app</v-icon>
+        <v-icon @click="signout()">mdi-exit-to-app</v-icon>
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" app clipped>
@@ -51,6 +51,9 @@
 
 <script>
 import StartStream from "../components/StartStream";
+import backend from "../Service";
+import auth from "../auth"
+import synclog from "../synclog"
 
 export default {
   data: () => {
@@ -62,13 +65,34 @@ export default {
         { text: "Device Manager", route: "/devices" }
       ],
       user: {
+<<<<<<< HEAD
         name: "Ly Chunvira",
         role: "Lecturer"
+=======
+        name: "",
+        role: ""
+>>>>>>> 4c168edbf54ecf523412d8c4d0a585a6a2ec8abf
       }
     };
   },
-  components: {
+  methods : {
+    signout() {
+      backend.logout()
+      auth()
+    },
+    async getUser() {
+      const user = await backend.getUserInfo();
+      this.user.name = user.data.name
+      this.user.role = user.data.role
+    }
+  },
+  components: { 
     StartStream
+  },
+  created(){
+    this.getUser();
+    auth();
+    synclog
   }
 };
 </script>
