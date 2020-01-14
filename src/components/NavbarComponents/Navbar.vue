@@ -28,16 +28,19 @@
           <v-list-item-content>
             <v-list-item-title>{{ user.name }}</v-list-item-title>
             <v-list-item-subtitle class="caption text-uppercase">
-              {{
-              user.role
-              }}
+              {{ user.role }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
         <v-list dense class="mt-3">
           <v-list-item-group v-model="item" color="primary">
-            <v-list-item v-for="(item, i) in items" :key="i" router :to="item.route">
+            <v-list-item
+              v-for="(item, i) in items"
+              :key="i"
+              router
+              :to="item.route"
+            >
               <v-list-item-content>
                 <v-list-item-title v-text="item.text"></v-list-item-title>
               </v-list-item-content>
@@ -50,10 +53,10 @@
 </template>
 
 <script>
-import StartStream from "../components/StartStream";
-import backend from "../Service";
-import auth from "../auth"
-import synclog from "../synclog"
+import StartStream from "./StartStream";
+import backend from "../../Service";
+import auth from "../../auth";
+import synclog from "../../synclog";
 
 export default {
   data: () => {
@@ -70,24 +73,24 @@ export default {
       }
     };
   },
-  methods : {
+  methods: {
     signout() {
-      backend.logout()
-      auth()
+      backend.logout();
+      auth();
     },
     async getUser() {
       const user = await backend.getUserInfo();
-      this.user.name = user.data.name
-      this.user.role = user.data.role
+      this.user.name = user.data.name;
+      this.user.role = user.data.role;
     }
   },
-  components: { 
+  components: {
     StartStream
   },
-  created(){
+  created() {
     this.getUser();
     auth();
-    synclog
+    synclog;
   }
 };
 </script>

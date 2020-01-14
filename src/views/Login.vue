@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import LoginCard from "../components/LoginCard";
+import LoginCard from "../components/LoginComponents/LoginCard";
 export default {
   components: {
     LoginCard
