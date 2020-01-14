@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import LoginTabs from "./LoginComponents/LoginTabs";
+import LoginTabs from "./LoginTabs";
 export default {
   components: {
     LoginTabs

@@ -12,7 +12,11 @@
       <v-card-text>
         <v-form ref="form">
           <v-text-field label="Title" color="black" required></v-text-field>
-          <v-text-field label="Description" color="black" required></v-text-field>
+          <v-text-field
+            label="Description"
+            color="black"
+            required
+          ></v-text-field>
           <!-- <v-text-field required label="Tags" color="black" :value="tag_list.toString()"></v-text-field> -->
           <v-combobox
             label="Tags"
@@ -32,13 +36,22 @@
                 @click:close="data.parent.selectItem(data.item)"
               >
                 <span class="pr-2">{{ data.item }}</span>
-                <v-icon small @click="data.parent.selectItem(data.item)">mdi-close</v-icon>
+                <v-icon small @click="data.parent.selectItem(data.item)"
+                  >mdi-close</v-icon
+                >
               </v-chip>
             </template>
           </v-combobox>
           <p class="overline my-3">Suggested Tags:</p>
-          <v-chip-group column multiple active-class="primary--text" v-model="tag_list">
-            <v-chip v-for="tag in tags" :key="tag" :value="tag">{{ tag }}</v-chip>
+          <v-chip-group
+            column
+            multiple
+            active-class="primary--text"
+            v-model="tag_list"
+          >
+            <v-chip v-for="tag in tags" :key="tag" :value="tag">{{
+              tag
+            }}</v-chip>
           </v-chip-group>
 
           <v-switch
@@ -55,14 +68,26 @@
             v-model="is_private"
             label="Private stream"
           ></v-switch>
-          <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
+          <v-text-field
+            label="Password"
+            color="black"
+            required
+            v-if="is_private"
+          ></v-text-field>
           <!-- <div v-else></div> -->
         </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
-        <v-btn color="black darken-1 font-weight-bold" text @click="start_stream = false">Continue</v-btn>
+        <v-btn color="black darken-1" text @click="start_stream = false"
+          >Cancel</v-btn
+        >
+        <v-btn
+          color="black darken-1 font-weight-bold"
+          text
+          @click="start_stream = false"
+          >Continue</v-btn
+        >
 
         <!-- <v-dialog v-model="select_class" max-width="780px">
           <template v-slot:activator="{ on }">
