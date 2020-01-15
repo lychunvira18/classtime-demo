@@ -39,7 +39,7 @@
               class="mb-5 mt-6"
             ></v-checkbox>
 
-            <v-btn color="black" dark block height="50">Register</v-btn>
+            <v-btn color="black" dark block height="50" @click="register">Register</v-btn>
           </v-form>
         </v-container>
       </v-tab-item>
@@ -50,27 +50,40 @@
 <script>
 import backend from "../../Service";
 import auth from "../../auth";
-import synclog from '../../synclog';
+import synclog from "../../synclog";
 export default {
   data() {
     return {
-      password : "",
-      username : "",
+      password: "",
+      username: "",
       tab: null,
       items: ["Login", "Register"],
       login_checkbox: true,
       register_checkbox: false
     };
   },
-  methods : {
+  methods: {
     async login() {
-      const message = await backend.login(this.username, this.password)
-      alert(message.message)
-    } 
+      const message = await backend.login(this.username, this.password);
+      alert(message.message);
+    },
+    async register() {
+      const user = await backend.signUp(
+        this.register_email,
+        this.register_password,
+        this.register_username
+      );
+      const { message } = user.data;
+      if (message) {
+        alert(message);
+      } else {
+        alert("Registered as successfully");
+      }
+    }
   },
-  created(){
+  created() {
     auth();
-    synclog
+    synclog;
   }
 };
 </script>

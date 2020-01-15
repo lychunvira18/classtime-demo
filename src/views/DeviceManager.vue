@@ -6,7 +6,13 @@
       <v-btn text>Add New Device</v-btn>
     </v-row>
 
-    <v-card v-for="device in devices" :key="device.id" class="my-5">
+    <v-card
+      v-for="device in devices"
+      :key="device.id"
+      class="my-5"
+      flat
+      style="border-radius: 25px"
+    >
       <v-expansion-panels>
         <v-expansion-panel>
           <v-expansion-panel-header>
@@ -28,14 +34,12 @@
               </v-card>
             </v-dialog>
 
-            <div class="d-flex justify-lg-space-between pa-4">
+            <div class="pa-4">
               <v-card flat>
-                <span class="headline">
-                  <v-btn icon @click.stop="editDevice = true" v-if="user.role === 'Admin'">
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                  {{device.name}}
-                </span>
+                <v-btn icon @click.stop="editDevice = true" v-if="user.role === 'Admin'">
+                  <v-icon>mdi-settings</v-icon>
+                </v-btn>
+                <span class="headline">{{device.name}}</span>
               </v-card>
               <v-card flat>
                 <span
@@ -43,25 +47,14 @@
                 >{{device.isOnline ? 'Online' : 'Offline'}}</span>
               </v-card>
             </div>
-            <!-- <div class="headline">{{device.name}}</div>
-
-            <div
-              :class="(device.isOnline ? 'green--text' : 'red--text') + ' font-weight-bold body-1'"
-            >{{device.isOnline ? 'Online' : 'Offline'}}</div>-->
-            <!-- <div v-if="!device.isOnline" class="red--text font-weight-bold body-1">Offline</div> -->
           </v-expansion-panel-header>
 
-          <v-divider></v-divider>
-
           <v-expansion-panel-content class="ma-5">
-            <!-- <div v-if="device.isConnected">Connected to: {{device.connectedDevice}}</div>
-            <div v-if="!device.isConnected">Not Connected</div>-->
             <div class="subtitle-1">
               <span class="font-weight-bold">{{device.isConnected ? 'Connected to: ' : ''}}</span>
               {{device.isConnected ? device.connectedDevice : 'Not Connected'}}
             </div>
-            <!-- <div v-if="device.isStreaming">Currently Streaming: {{device.currentlyStreaming}}</div>
-            <div v-if="!device.isStreaming">Not Streaming</div>-->
+
             <div class="subtitle-1">
               <span class="font-weight-bold">{{device.isStreaming ? 'Currently Streaming: ' : ''}}</span>
               {{device.isStreaming ? device.currentlyStreaming : 'Not Streaming'}}
@@ -107,12 +100,11 @@ export default {
           isStreaming: false,
           currentlyStreaming: null
         }
-      ],
-      user: {
-        name: "Ly Chunvira",
-        role: "Lecturer"
-      }
+      ]
     };
+  },
+  props: {
+    user: Object
   }
 };
 </script>

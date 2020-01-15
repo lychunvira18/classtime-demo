@@ -9,7 +9,7 @@
       <v-btn text small>Show more</v-btn>
     </v-row>
     <v-row>
-      <v-col v-for="stream in streams" :key="stream.id" :cols="4">
+      <v-col v-for="stream in streams" :key="stream.id" :lg="4" :md="6" :xs="12">
         <v-card dark :to="`/stream/${stream.title}`">
           <v-img :src="stream.img_url" class="white--text align-end" height="240px">
             <v-card-title v-text="stream.title"></v-card-title>
@@ -27,7 +27,7 @@
       <v-btn text small>Show more</v-btn>
     </v-row>
     <v-row>
-      <v-col v-for="video in videos" :key="video.id" :cols="3">
+      <v-col v-for="video in videos" :key="video.id" :lg="3" :md="4" :xs="12">
         <v-card dark :to="`/stream/${video.title}`">
           <v-img :src="video.img_url" class="white--text align-end" height="210px">
             <v-card-title v-text="video.title"></v-card-title>
@@ -45,7 +45,7 @@
       <v-btn text small>Show more</v-btn>
     </v-row>
     <v-row>
-      <v-col v-for="video in videos" :key="video.id" :cols="3">
+      <v-col v-for="video in videos" :key="video.id" :lg="3" :md="4" :xs="12">
         <v-card dark :to="`/stream/${video.title}`">
           <v-img :src="video.img_url" class="white--text align-end" height="210px">
             <v-card-title v-text="video.title"></v-card-title>

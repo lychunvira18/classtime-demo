@@ -1,23 +1,18 @@
 <template>
   <v-dialog v-model="start_stream" max-width="670px">
     <template v-slot:activator="{ on }">
-      <v-btn icon v-on="on">
-        <v-icon>mdi-record</v-icon>
+      <v-btn v-on="on" outlined>
+        <v-icon left>mdi-record</v-icon>Go Live
       </v-btn>
     </template>
-    <v-card>
+    <v-card v-if="user.role === 'Student'">
       <v-card-title>
         <span class="title font-weight-regular">Create stream</span>
       </v-card-title>
       <v-card-text>
         <v-form ref="form">
           <v-text-field label="Title" color="black" required></v-text-field>
-          <v-text-field
-            label="Description"
-            color="black"
-            required
-          ></v-text-field>
-          <!-- <v-text-field required label="Tags" color="black" :value="tag_list.toString()"></v-text-field> -->
+          <v-text-field label="Description" color="black" required></v-text-field>
           <v-combobox
             label="Tags"
             color="black"
@@ -36,22 +31,17 @@
                 @click:close="data.parent.selectItem(data.item)"
               >
                 <span class="pr-2">{{ data.item }}</span>
-                <v-icon small @click="data.parent.selectItem(data.item)"
-                  >mdi-close</v-icon
-                >
+                <v-icon small @click="data.parent.selectItem(data.item)">mdi-close</v-icon>
               </v-chip>
             </template>
           </v-combobox>
           <p class="overline my-3">Suggested Tags:</p>
-          <v-chip-group
-            column
-            multiple
-            active-class="primary--text"
-            v-model="tag_list"
-          >
-            <v-chip v-for="tag in tags" :key="tag" :value="tag">{{
+          <v-chip-group column multiple active-class="primary--text" v-model="tag_list">
+            <v-chip v-for="tag in tags" :key="tag" :value="tag">
+              {{
               tag
-            }}</v-chip>
+              }}
+            </v-chip>
           </v-chip-group>
 
           <v-switch
@@ -68,28 +58,75 @@
             v-model="is_private"
             label="Private stream"
           ></v-switch>
-          <v-text-field
-            label="Password"
-            color="black"
-            required
-            v-if="is_private"
-          ></v-text-field>
-          <!-- <div v-else></div> -->
+          <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
         </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="black darken-1" text @click="start_stream = false"
-          >Cancel</v-btn
-        >
-        <v-btn
-          color="black darken-1 font-weight-bold"
-          text
-          @click="start_stream = false"
-          >Continue</v-btn
-        >
+        <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
+        <v-btn color="black darken-1 font-weight-bold" text @click="start_stream = false">Continue</v-btn>
+      </v-card-actions>
+    </v-card>
+    <v-card v-if="user.role !== 'Student'">
+      <v-card-title>
+        <span class="title font-weight-regular">Create stream</span>
+      </v-card-title>
+      <v-card-text>
+        <v-form ref="form">
+          <v-text-field label="Title" color="black" required></v-text-field>
+          <v-text-field label="Description" color="black" required></v-text-field>
+          <v-combobox
+            label="Tags"
+            color="black"
+            v-model="tag_list"
+            :items="tags"
+            chips
+            multiple
+            hide-selected
+          >
+            <template v-slot:selection="data">
+              <v-chip
+                :key="JSON.stringify(data.item)"
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                :disabled="data.disabled"
+                @click:close="data.parent.selectItem(data.item)"
+              >
+                <span class="pr-2">{{ data.item }}</span>
+                <v-icon small @click="data.parent.selectItem(data.item)">mdi-close</v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <p class="overline my-3">Suggested Tags:</p>
+          <v-chip-group column multiple active-class="primary--text" v-model="tag_list">
+            <v-chip v-for="tag in tags" :key="tag" :value="tag">
+              {{
+              tag
+              }}
+            </v-chip>
+          </v-chip-group>
 
-        <!-- <v-dialog v-model="select_class" max-width="780px">
+          <v-switch
+            class="pa-0 mt-6"
+            dense
+            color="grey darken-2"
+            v-model="is_conference"
+            label="Conference call"
+          ></v-switch>
+          <v-switch
+            class="pa-0 ma-0"
+            dense
+            color="grey darken-2"
+            v-model="is_private"
+            label="Private stream"
+          ></v-switch>
+          <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
+        <v-dialog v-model="select_class" max-width="780px">
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on" class="font-weight-black">Continue</v-btn>
           </template>
@@ -143,7 +180,7 @@
               </v-dialog>
             </v-card-actions>
           </v-card>
-        </v-dialog>-->
+        </v-dialog>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -182,7 +219,10 @@ export default {
     ],
     is_conference: false,
     is_private: false
-  })
+  }),
+  props: {
+    user: Object
+  }
 };
 </script>
 <style>
