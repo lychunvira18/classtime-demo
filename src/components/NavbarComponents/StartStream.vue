@@ -74,7 +74,7 @@
         <v-btn
           color="black darken-1 font-weight-bold"
           text
-          @click="start_stream = false"
+          @click="startStream()"
           >Continue</v-btn
         >
       </v-card-actions>
@@ -247,7 +247,7 @@ export default {
       console.log("HI")
       const stream = await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
       this.start_stream = false
-      this.$route.replace(`/stream/${stream.data.streamCode}`)
+      window.location.replace(`/stream/${stream.data.streamCode}`)
     }
 
   }

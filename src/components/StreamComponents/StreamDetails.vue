@@ -5,8 +5,8 @@
         <v-container>
           <v-row class="px-3">
             <v-col cols="10" class="text-left">
-              <div class="headline">{{this.streamName}}</div>
-              <div class="body-2 font-weight-light">Vignesh Manoharan</div>
+              <div class="headline">{{streamTitle}}</div>
+              <div class="body-2 font-weight-light">{{author}}</div>
             </v-col>
             <v-col cols="2" class="d-flex justify-end align-center">
               <div class="mx-2">
@@ -34,11 +34,7 @@
           <v-row>
             <v-col>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Obcaecati officiis blanditiis ab praesentium rem? Ratione,
-                architecto molestiae. Velit recusandae fugiat perferendis
-                veritatis assumenda, debitis in iusto. Voluptatum reiciendis
-                ipsam vitae.
+                {{description}}
               </p>
             </v-col>
           </v-row>
@@ -63,11 +59,14 @@
 </template>
 
 <script>
+import backend from "../../Service"
 export default {
   name: "streamdetails",
   data() {
     return {
-      streamName: this.$route.params.streamName,
+      streamTitle: "",
+      description : "",
+      author : "",
       tags: [
         "#web-apps",
         "#design-patterns",
@@ -77,6 +76,20 @@ export default {
         "#batch7"
       ]
     };
+  },
+  methods : {
+    async getStreamDetails(){
+      const streamDetail = await backend.getStreamDetail(this.$route.params.streamName)
+      console.log(streamDetail)
+      if (streamDetail.data){
+        this.streamTitle = streamDetail.data.streamTitle
+        this.author = streamDetail.data.ownerName
+        this.description = streamDetail.data.description
+      }
+    }
+  },
+  created(){
+    this.getStreamDetails()
   }
 };
 </script>

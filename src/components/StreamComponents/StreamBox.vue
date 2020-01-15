@@ -39,7 +39,6 @@ export default {
   },
   created() {
     const JitsiMeet = require("jitsi-meet-wrapper");
-
     const options = {};
 
     const meet = new JitsiMeet("https://meet.jit.si");
