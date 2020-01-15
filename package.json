@@ -1,4 +1,5 @@
 
+{
   "name": "classtime",
   "version": "0.1.0",
   "private": true,
@@ -39,7 +40,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-Console" : "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
