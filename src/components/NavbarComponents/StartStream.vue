@@ -122,7 +122,7 @@
         >
         <v-dialog v-model="select_class" max-width="780px">
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" class="font-weight-black">Continue</v-btn>
+            <v-btn text v-on="on" class="font-weight-black" @click="startStream()">Continue</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -244,9 +244,10 @@ export default {
   },
   methods : {
     async startStream() {
-      await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
-      
+      console.log("HI")
+      const stream = await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
       this.start_stream = false
+      this.$route.replace(`/stream/${stream.data.streamCode}`)
     }
 
   }
