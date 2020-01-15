@@ -10,7 +10,7 @@
       <v-tab-item style="height:400px" v-for="item in items" :key="item">
         <v-container class="px-12" v-if="item=='Login'">
           <v-form ref="form">
-            <v-text-field label="Username" v-model="username"></v-text-field>
+            <v-text-field label="E-mail" v-model="username"></v-text-field>
             <v-text-field label="Password" v-model="password" type="password" append-icon="mdi-eye"></v-text-field>
 
             <v-checkbox
@@ -28,7 +28,12 @@
           <v-form ref="form">
             <v-text-field label="Username" v-model="register_username"></v-text-field>
             <v-text-field label="Email" v-model="register_email"></v-text-field>
-            <v-text-field label="Password" v-model="register_password" type="password" append-icon="mdi-eye"></v-text-field>
+            <v-text-field
+              label="Password"
+              v-model="register_password"
+              type="password"
+              append-icon="mdi-eye"
+            ></v-text-field>
 
             <v-checkbox
               color="black"
@@ -39,9 +44,7 @@
               class="mb-5 mt-6"
             ></v-checkbox>
 
-
             <v-btn color="black" dark block height="50" @click="register()">Register</v-btn>
-
           </v-form>
         </v-container>
       </v-tab-item>
@@ -62,9 +65,9 @@ export default {
       items: ["Login", "Register"],
       login_checkbox: true,
       register_checkbox: false,
-      register_username : "",
-      register_email : "",
-      register_password : ""
+      register_username: "",
+      register_email: "",
+      register_password: ""
     };
   },
   methods: {
@@ -83,7 +86,6 @@ export default {
         alert(message);
       } else {
         alert("Registered as successfully");
-
       }
     }
   },

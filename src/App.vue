@@ -1,9 +1,6 @@
 <template>
   <v-app>
-    <Navbar
-      v-if="$route.name !== 'login' && $route.name !== 'stream'"
-      :user="user"
-    />
+    <Navbar v-if="$route.name !== 'login'" :user="user" />
     <v-content>
       <router-view :user="user"></router-view>
     </v-content>
