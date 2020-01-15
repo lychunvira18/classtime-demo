@@ -1,17 +1,14 @@
 <template>
   <nav>
-    <v-app-bar dense class="black lighten-2 pr-2" dark flat app clipped-left>
+    <v-app-bar class="black lighten-2 pr-2" dark flat app clipped-left>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
         <span class="font-weight-thin">Class</span>
         <span class="font-weight-bold">Time</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <!-- <v-btn icon>
-        <v-icon>mdi-record</v-icon>
-      </v-btn>-->
-      <StartStream />
-      <v-btn icon>
+      <StartStream :user="user" />
+      <v-btn icon class="ml-4">
         <v-icon>mdi-bell</v-icon>
       </v-btn>
       <v-btn icon>
@@ -27,22 +24,25 @@
 
           <v-list-item-content>
             <v-list-item-title>{{ user.name }}</v-list-item-title>
-            <v-list-item-subtitle class="caption text-uppercase">
-              {{ user.role }}
-            </v-list-item-subtitle>
+            <v-list-item-subtitle class="caption text-uppercase">{{ user.role }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
         <v-list dense class="mt-3">
           <v-list-item-group v-model="item" color="primary">
-            <v-list-item
-              v-for="(item, i) in items"
-              :key="i"
-              router
-              :to="item.route"
-            >
+            <!-- <v-list-item v-for="(item, i) in items" :key="i" router :to="item.route">
               <v-list-item-content>
                 <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>-->
+            <v-list-item router to="/home">
+              <v-list-item-content>
+                <v-list-item-title v-text="'Home'"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item router to="/devices" v-if="user.role !== 'Student'">
+              <v-list-item-content>
+                <v-list-item-title v-text="'Device Manager'"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -54,9 +54,8 @@
 
 <script>
 import StartStream from "./StartStream";
-import backend from "../../Service";
 import auth from "../../auth";
-import synclog from "../../synclog";
+import backend from "../../Service";
 
 export default {
   data: () => {
@@ -66,31 +65,20 @@ export default {
       items: [
         { text: "Home", route: "/home" },
         { text: "Device Manager", route: "/devices" }
-      ],
-      user: {
-        name: "",
-        role: ""
-      }
+      ]
     };
+  },
+  props: {
+    user: Object
   },
   methods: {
     signout() {
       backend.logout();
       auth();
-    },
-    async getUser() {
-      const user = await backend.getUserInfo();
-      this.user.name = user.data.name;
-      this.user.role = user.data.role;
     }
   },
   components: {
     StartStream
-  },
-  created() {
-    this.getUser();
-    auth();
-    synclog;
   }
 };
 </script>
