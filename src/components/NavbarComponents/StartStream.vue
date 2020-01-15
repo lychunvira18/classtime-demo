@@ -12,8 +12,12 @@
       <v-card-text>
         <v-form ref="form">
           <v-text-field label="Title" color="black" required></v-text-field>
-          <v-text-field label="Description" color="black" required></v-text-field>
-          <v-combobox
+          <v-text-field
+            label="Description"
+            color="black"
+            required
+          ></v-text-field>
+          <!-- <v-combobox
             label="Tags"
             color="black"
             v-model="tag_list"
@@ -42,7 +46,7 @@
               tag
               }}
             </v-chip>
-          </v-chip-group>
+          </v-chip-group> -->
 
           <v-switch
             class="pa-0 mt-6"
@@ -58,13 +62,25 @@
             v-model="is_private"
             label="Private stream"
           ></v-switch>
-          <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
+          <v-text-field
+            label="Password"
+            color="black"
+            required
+            v-if="is_private"
+          ></v-text-field>
         </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
-        <v-btn color="black darken-1 font-weight-bold" text @click="start_stream = false">Continue</v-btn>
+        <v-btn color="black darken-1" text @click="start_stream = false"
+          >Cancel</v-btn
+        >
+        <v-btn
+          color="black darken-1 font-weight-bold"
+          text
+          @click="start_stream = false"
+          >Continue</v-btn
+        >
       </v-card-actions>
     </v-card>
     <v-card v-if="user.role !== 'Student'">
@@ -74,8 +90,12 @@
       <v-card-text>
         <v-form ref="form">
           <v-text-field label="Title" color="black" required></v-text-field>
-          <v-text-field label="Description" color="black" required></v-text-field>
-          <v-combobox
+          <v-text-field
+            label="Description"
+            color="black"
+            required
+          ></v-text-field>
+          <!-- <v-combobox
             label="Tags"
             color="black"
             v-model="tag_list"
@@ -93,39 +113,51 @@
                 @click:close="data.parent.selectItem(data.item)"
               >
                 <span class="pr-2">{{ data.item }}</span>
-                <v-icon small @click="data.parent.selectItem(data.item)">mdi-close</v-icon>
+                <v-icon small @click="data.parent.selectItem(data.item)"
+                  >mdi-close</v-icon
+                >
               </v-chip>
             </template>
           </v-combobox>
           <p class="overline my-3">Suggested Tags:</p>
-          <v-chip-group column multiple active-class="primary--text" v-model="tag_list">
+          <v-chip-group
+            column
+            multiple
+            active-class="primary--text"
+            v-model="tag_list"
+          >
             <v-chip v-for="tag in tags" :key="tag" :value="tag">
-              {{
-              tag
-              }}
+              {{ tag }}
             </v-chip>
-          </v-chip-group>
+          </v-chip-group> -->
 
-          <v-switch
+          <!-- <v-switch
             class="pa-0 mt-6"
             dense
             color="grey darken-2"
             v-model="is_conference"
             label="Conference call"
-          ></v-switch>
+          ></v-switch> -->
           <v-switch
-            class="pa-0 ma-0"
+            class="pa-0 mt-5"
             dense
             color="grey darken-2"
             v-model="is_private"
             label="Private stream"
           ></v-switch>
-          <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
+          <v-text-field
+            label="Password"
+            color="black"
+            required
+            v-if="is_private"
+          ></v-text-field>
         </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
+        <v-btn color="black darken-1" text @click="start_stream = false"
+          >Cancel</v-btn
+        >
         <v-dialog v-model="select_class" max-width="780px">
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on" class="font-weight-black">Continue</v-btn>
@@ -145,17 +177,23 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="black darken-1" text @click="select_class = false">Cancel</v-btn>
+              <v-btn color="black darken-1" text @click="select_class = false"
+                >Cancel</v-btn
+              >
               <v-dialog v-model="select_classes" max-width="800px">
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" class="font-weight-black">Continue</v-btn>
+                  <v-btn text v-on="on" class="font-weight-black"
+                    >Continue</v-btn
+                  >
                 </template>
                 <v-card>
                   <v-card-title>
                     <span class="title font-weight-regular">Setup</span>
                   </v-card-title>
                   <v-card-text>
-                    <p class="my-2">Would you like to cast the stream to other rooms?</p>
+                    <p class="my-2">
+                      Would you like to cast the stream to other rooms?
+                    </p>
                     <div class="checkboxes_overflow">
                       <v-checkbox
                         v-for="classroom in classes_cast"
@@ -169,12 +207,26 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="black darken-1" text @click="select_classes = false">Cancel</v-btn>
                     <v-btn
                       color="black darken-1"
                       text
-                      @click="start_stream = select_class = select_classes = false"
-                    >{{classes_cast.filter(classroom => (classroom.value == true)).length > 0 ? 'Yes' : 'No'}}</v-btn>
+                      @click="select_classes = false"
+                      >Cancel</v-btn
+                    >
+                    <v-btn
+                      color="black darken-1"
+                      text
+                      @click="
+                        start_stream = select_class = select_classes = false
+                      "
+                      >{{
+                        classes_cast.filter(
+                          classroom => classroom.value == true
+                        ).length > 0
+                          ? "Yes"
+                          : "No"
+                      }}</v-btn
+                    >
                   </v-card-actions>
                 </v-card>
               </v-dialog>
