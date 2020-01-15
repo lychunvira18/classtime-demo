@@ -233,20 +233,19 @@ export default {
       { name: "KIT Campus II - Classroom 3", value: false }
     ],
     is_conference: false,
-    is_private: false
-  }),
-  props: {
-    user: Object
+    is_private: false,
     streamTitle : "",
     description : "",
-    is_private: false,
-    password : "",
+    password : ""
   }),
+  props: {
+    user: Object,
+
+  },
   methods : {
     async startStream() {
-      const stream = await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
+      await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
       
-      console.log(stream)
       this.start_stream = false
     }
 
