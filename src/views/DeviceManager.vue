@@ -6,81 +6,77 @@
       <v-btn text>Add New Device</v-btn>
     </v-row>
 
+    <v-dialog v-model="editDevice" width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="title font-weight-regular">Edit device</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field label="Enter a new device name"></v-text-field>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="editDevice = false">Cancel</v-btn>
+          <v-btn text @click="editDevice = false">Confirm</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-card
+      flat
       v-for="device in devices"
       :key="device.deviceId"
-      class="my-5"
-      style="border-radius: 25px"
+      class="my-4"
+      style="border-radius: 10px"
     >
       <v-expansion-panels>
         <v-expansion-panel>
-          <v-expansion-panel-header>
-            <v-dialog v-model="editDevice" width="500px">
-              <v-card>
-                <v-card-title class="headline grey lighten-2" primary-title
-                  >Edit Device</v-card-title
-                >
-
-                <v-container>
-                  <v-text-field label="Enter New Device Name"></v-text-field>
-                </v-container>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn text @click="editDevice = false">Cancel</v-btn>
-                  <v-btn text @click="editDevice = false">Confirm</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-
-            <div class="d-flex justify-lg-space-between ">
-              <v-card flat class="ma-0">
-                <p class="headline">{{ device.name }}</p>
-                <p
+          <v-container>
+            <v-row class="px-3">
+              <v-col cols="10" class="text-left">
+                <div class="headline">{{ device.name }}</div>
+                <div
                   :class="
                     (device.isOnline ? 'green--text' : 'red--text') +
-                      ' font-weight-bold body-1 text-uppercase'
+                      ' font-weight-bold body-1 text-uppercase mt-4'
                   "
-                >
-                  {{ device.isOnline ? "Online" : "Offline" }}
-                </p>
-              </v-card>
-              <v-card flat>
-                <v-btn
-                  icon
-                  @click.stop="editDevice = true"
-                  v-if="user.role === 'Admin'"
-                >
-                  <v-icon>mdi-settings</v-icon>
-                </v-btn>
-              </v-card>
-            </div>
-            <!-- <div class="headline">{{device.name}}</div>
-
-            <div
-              :class="(device.isOnline ? 'green--text' : 'red--text') + ' font-weight-bold body-1'"
-            >{{device.isOnline ? 'Online' : 'Offline'}}</div>-->
-            <!-- <div v-if="!device.isOnline" class="red--text font-weight-bold body-1">Offline</div> -->
-          </v-expansion-panel-header>
+                >{{ device.isOnline ? "Online" : "Offline" }}</div>
+              </v-col>
+              <v-col cols="2" class="d-flex justify-end align-center">
+                <div class="ml-4">
+                  <v-btn icon @click.stop="editDevice = true" v-if="user.role === 'Admin'">
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-btn>
+                </div>
+              </v-col>
+            </v-row>
+          </v-container>
 
           <v-divider></v-divider>
 
-          <v-expansion-panel-content class="ma-5">
-            <!-- <div v-if="device.isConnected">Connected to: {{device.connectedDevice}}</div>
-            <div v-if="!device.isConnected">Not Connected</div>-->
+          <v-expansion-panel-header>
+            <!-- <div class="link">Show Details</div> -->
+            <span class="overline">Show details</span>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
             <div class="subtitle-1">
-              <span class="font-weight-bold">{{
-                device.cameraPlugged ? "Connected to: " : ""
-              }}</span>
-              {{ device.cameraPlugged ? "" : "Not Connected" }}
+              <span class="font-weight-bold">
+                {{
+                device.isConnected ? "Connected to: " : ""
+                }}
+              </span>
+              {{ device.isConnected ? device.connectedDevice : "Not Connected" }}
             </div>
             <!-- <div v-if="device.isStreaming">Currently Streaming: {{device.currentlyStreaming}}</div>
             <div v-if="!device.isStreaming">Not Streaming</div>-->
             <div class="subtitle-1">
-              <span class="font-weight-bold">{{
-                device.streaming ? "Currently Streaming: " : ""
-              }}</span>
-              {{ device.streaming ? "" : "Not Streaming" }}
+              <span class="font-weight-bold">
+                {{
+                device.isStreaming ? "Currently Streaming: " : ""
+                }}
+              </span>
+              {{ device.isStreaming ? device.currentlyStreaming : "Not Streaming" }}
             </div>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -133,5 +129,4 @@ export default {
     user: Object
   }
 };
-
 </script>
