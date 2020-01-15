@@ -58,12 +58,11 @@
 </template>
 
 <script>
-import backend from "../Service"
+import backend from "../Service";
 export default {
   data: () => {
     return {
-      streams: [
-      ],
+      streams: [],
       videos: [
         {
           id: 1,
@@ -96,23 +95,23 @@ export default {
       ]
     };
   },
-  methods : {
-    async getcurrentlyStreaming(){
+  methods: {
+    async getcurrentlyStreaming() {
       const streams = await backend.getCurrentlyStreaming();
       streams.data.forEach(stream => {
         this.streams.push({
-          id : stream.streamCode,
-          title : stream.streamTitle,
-          description : stream.description,
-          isPrivate : true,
-          author : stream.ownerName,
-          date : stream.date
-        })
+          id: stream.streamCode,
+          title: stream.streamTitle,
+          description: stream.description,
+          isPrivate: true,
+          author: stream.ownerName,
+          date: stream.date
+        });
       });
     }
   },
-  created(){
-    this.getcurrentlyStreaming()
+  created() {
+    this.getcurrentlyStreaming();
   }
 };
 </script>
