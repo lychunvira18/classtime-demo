@@ -26,9 +26,9 @@
         </v-container>
         <v-container class="px-12" v-else>
           <v-form ref="form">
-            <v-text-field label="Username"></v-text-field>
-            <v-text-field label="Email"></v-text-field>
-            <v-text-field label="Password" type="password" append-icon="mdi-eye"></v-text-field>
+            <v-text-field label="Username" v-model="register_username"></v-text-field>
+            <v-text-field label="Email" v-model="register_email"></v-text-field>
+            <v-text-field label="Password" v-model="register_password" type="password" append-icon="mdi-eye"></v-text-field>
 
             <v-checkbox
               color="black"
@@ -39,7 +39,9 @@
               class="mb-5 mt-6"
             ></v-checkbox>
 
-            <v-btn color="black" dark block height="50" @click="register">Register</v-btn>
+
+            <v-btn color="black" dark block height="50" @click="register()">Register</v-btn>
+
           </v-form>
         </v-container>
       </v-tab-item>
@@ -59,7 +61,10 @@ export default {
       tab: null,
       items: ["Login", "Register"],
       login_checkbox: true,
-      register_checkbox: false
+      register_checkbox: false,
+      register_username : "",
+      register_email : "",
+      register_password : ""
     };
   },
   methods: {
@@ -78,6 +83,7 @@ export default {
         alert(message);
       } else {
         alert("Registered as successfully");
+
       }
     }
   },

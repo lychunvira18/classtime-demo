@@ -58,52 +58,11 @@
 </template>
 
 <script>
+import backend from "../Service"
 export default {
   data: () => {
     return {
       streams: [
-        {
-          id: 1,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 2,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 3,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 4,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 5,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 6,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        }
       ],
       videos: [
         {
@@ -136,6 +95,24 @@ export default {
         }
       ]
     };
+  },
+  methods : {
+    async getcurrentlyStreaming(){
+      const streams = await backend.getCurrentlyStreaming();
+      streams.data.forEach(stream => {
+        this.streams.push({
+          id : stream.streamCode,
+          title : stream.streamTitle,
+          description : stream.description,
+          isPrivate : true,
+          author : stream.ownerName,
+          date : stream.date
+        })
+      });
+    }
+  },
+  created(){
+    this.getcurrentlyStreaming()
   }
 };
 </script>

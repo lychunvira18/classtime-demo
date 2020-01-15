@@ -11,13 +11,12 @@
       </v-card-title>
       <v-card-text>
         <v-form ref="form">
-          <v-text-field label="Title" color="black" required></v-text-field>
-          <v-text-field
-            label="Description"
-            color="black"
-            required
-          ></v-text-field>
-          <!-- <v-combobox
+
+          <v-text-field label="Title" color="black" v-model="streamTitle" required></v-text-field>
+          <v-text-field label="Description" color="black" v-model="description" required></v-text-field>
+          <!-- <v-text-field required label="Tags" color="black" :value="tag_list.toString()"></v-text-field> -->
+          <v-combobox
+
             label="Tags"
             color="black"
             v-model="tag_list"
@@ -62,12 +61,9 @@
             v-model="is_private"
             label="Private stream"
           ></v-switch>
-          <v-text-field
-            label="Password"
-            color="black"
-            required
-            v-if="is_private"
-          ></v-text-field>
+
+          <v-text-field label="Password" v-model="password" color="black" required v-if="is_private"></v-text-field>
+          <!-- <div v-else></div> -->
         </v-form>
       </v-card-text>
       <v-card-actions>
@@ -95,41 +91,7 @@
             color="black"
             required
           ></v-text-field>
-          <!-- <v-combobox
-            label="Tags"
-            color="black"
-            v-model="tag_list"
-            :items="tags"
-            chips
-            multiple
-            hide-selected
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                :key="JSON.stringify(data.item)"
-                v-bind="data.attrs"
-                :input-value="data.selected"
-                :disabled="data.disabled"
-                @click:close="data.parent.selectItem(data.item)"
-              >
-                <span class="pr-2">{{ data.item }}</span>
-                <v-icon small @click="data.parent.selectItem(data.item)"
-                  >mdi-close</v-icon
-                >
-              </v-chip>
-            </template>
-          </v-combobox>
-          <p class="overline my-3">Suggested Tags:</p>
-          <v-chip-group
-            column
-            multiple
-            active-class="primary--text"
-            v-model="tag_list"
-          >
-            <v-chip v-for="tag in tags" :key="tag" :value="tag">
-              {{ tag }}
-            </v-chip>
-          </v-chip-group> -->
+
 
           <!-- <v-switch
             class="pa-0 mt-6"
@@ -238,6 +200,7 @@
   </v-dialog>
 </template>
 <script>
+import backend from "../../Service"
 export default {
   data: () => ({
     tag_list: [],
@@ -274,6 +237,19 @@ export default {
   }),
   props: {
     user: Object
+    streamTitle : "",
+    description : "",
+    is_private: false,
+    password : "",
+  }),
+  methods : {
+    async startStream() {
+      const stream = await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
+      
+      console.log(stream)
+      this.start_stream = false
+    }
+
   }
 };
 </script>
