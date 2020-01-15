@@ -44,6 +44,12 @@ class Service {
             password
         },{ params:{}, headers:{ 'auth-token': token }})
     }
+
+    // Get Stream detail
+    static getStreamDetail(streamCode){
+      const token = cookie.getCookie("auth-token")
+      return axios.post(`${url}users/getStreamDetail`,{streamCode},{ params:{}, headers:{ 'auth-token': token }})    
+    }
   
 
     // // Create a new class for the current user

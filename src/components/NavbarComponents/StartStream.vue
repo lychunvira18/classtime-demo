@@ -73,8 +73,17 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
-        <v-btn color="black darken-1 font-weight-bold" text @click="start_stream = false">Continue</v-btn>
+
+        <v-btn color="black darken-1" text @click="start_stream = false"
+          >Cancel</v-btn
+        >
+        <v-btn
+          color="black darken-1 font-weight-bold"
+          text
+          @click="startStream()"
+          >Continue</v-btn
+        >
+
       </v-card-actions>
     </v-card>
     <v-card v-if="user.role !== 'Student'">
@@ -219,15 +228,12 @@ export default {
   },
   methods: {
     async startStream() {
-      console.log("HI");
-      const stream = await backend.startStream(
-        this.streamTitle,
-        this.description,
-        this.is_private,
-        this.password
-      );
-      this.start_stream = false;
-      this.$route.replace(`/stream/${stream.data.streamCode}`);
+
+      console.log("HI")
+      const stream = await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
+      this.start_stream = false
+      window.location.replace(`/stream/${stream.data.streamCode}`)
+
     }
   }
 };
