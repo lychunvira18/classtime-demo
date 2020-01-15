@@ -10,7 +10,7 @@
     </v-row>
     <v-row>
       <v-col v-for="stream in streams" :key="stream.id" :cols="4">
-        <v-card dark :to="`/stream/${stream.title}`">
+        <v-card dark :to="`/stream/${stream.id}`">
           <v-img :src="stream.img_url" class="white--text align-end" height="240px">
             <v-card-title v-text="stream.title"></v-card-title>
             <v-card-subtitle v-text="stream.author"></v-card-subtitle>
