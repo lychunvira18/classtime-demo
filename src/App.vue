@@ -29,7 +29,8 @@ export default {
   data: () => ({
     user: {
       name: "",
-      role: ""
+      role: "",
+      isStreaming: true
     }
   }),
 

@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="start_stream" max-width="670px">
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on" outlined>
+      <v-btn v-on="on" outlined id="startStreamBtn">
         <v-icon left>mdi-record</v-icon>Go Live
       </v-btn>
     </template>
