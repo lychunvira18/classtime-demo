@@ -74,16 +74,8 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn color="black darken-1" text @click="start_stream = false"
-          >Cancel</v-btn
-        >
-        <v-btn
-          color="black darken-1 font-weight-bold"
-          text
-          @click="startStream()"
-          >Continue</v-btn
-        >
-
+        <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
+        <v-btn color="black darken-1 font-weight-bold" text @click="startStream()">Continue</v-btn>
       </v-card-actions>
     </v-card>
     <v-card v-if="user.role !== 'Student'">
@@ -103,11 +95,18 @@
             label="Conference call"
           ></v-switch>-->
           <v-switch
-            class="pa-0 mt-5"
+            class="pa-0 mt-5 mb-0"
             dense
             color="grey darken-2"
             v-model="is_private"
             label="Private stream"
+          ></v-switch>
+          <v-switch
+            class="pa-0"
+            dense
+            color="grey darken-2"
+            v-model="is_from_webcam"
+            label="From your webcam"
           ></v-switch>
           <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
         </v-form>
@@ -115,9 +114,17 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
-        <v-dialog v-model="select_class" max-width="780px">
+        <!-- For streaming from own device -->
+        <v-btn
+          class="font-weight-black ma-0"
+          text
+          v-if="is_from_webcam"
+          @click="startStream()"
+        >Continue</v-btn>
+        <!-- For streaming from our devices -->
+        <v-dialog v-model="select_class" max-width="780px" v-else>
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" class="font-weight-black" @click="startStream()">Continue</v-btn>
+            <v-btn text v-on="on" class="font-weight-black">Continue</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -221,19 +228,23 @@ export default {
     is_private: false,
     streamTitle: "",
     description: "",
-    password: ""
+    password: "",
+    is_from_webcam: false
   }),
   props: {
     user: Object
   },
   methods: {
     async startStream() {
-
-      console.log("HI")
-      const stream = await backend.startStream(this.streamTitle,this.description,this.is_private,this.password)
-      this.start_stream = false
-      window.location.replace(`/stream/${stream.data.streamCode}`)
-
+      console.log("HI");
+      const stream = await backend.startStream(
+        this.streamTitle,
+        this.description,
+        this.is_private,
+        this.password
+      );
+      this.start_stream = false;
+      window.location.replace(`/stream/${stream.data.streamCode}`);
     }
   }
 };
