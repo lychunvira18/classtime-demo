@@ -7,7 +7,10 @@
         <span class="font-weight-bold">Time</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <StartStream :user="user" />
+      <v-btn outlined v-if="user.isStreaming" class="red">
+        <v-icon left>mdi-record</v-icon>Stop Stream
+      </v-btn>
+      <StartStream :user="user" v-else />
       <v-btn icon class="ml-4">
         <v-icon>mdi-bell</v-icon>
       </v-btn>
