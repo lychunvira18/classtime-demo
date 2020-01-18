@@ -30,7 +30,7 @@ export default {
     user: {
       name: "",
       role: "",
-      isStreaming: true
+      isStreaming: false
     }
   }),
 

@@ -28,12 +28,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="black darken-1" text @click="start_stream = false">Cancel</v-btn>
-        <v-btn
-          text
-          v-on="on"
-          class="font-weight-black"
-          :@click="user.role === 'student' ? startStream() : select_class=true"
-        >Continue</v-btn>
+        <v-btn text v-on="on" class="font-weight-black">Continue</v-btn>
 
         <v-dialog v-model="select_class" max-width="780px">
           <v-card>
@@ -78,6 +73,7 @@
                     <v-spacer></v-spacer>
                     <v-btn color="black darken-1" text @click="select_classes = false">Cancel</v-btn>
                     <v-btn
+                      id="startBtn"
                       color="black darken-1"
                       text
                       @click="
