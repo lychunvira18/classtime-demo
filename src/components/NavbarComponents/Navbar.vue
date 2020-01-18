@@ -7,7 +7,7 @@
         <span class="font-weight-bold">Time</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn outlined v-if="user.isStreaming" class="red">
+      <v-btn outlined v-if="user.isStreaming" class="red" id="stopStreamBtn">
         <v-icon left>mdi-record</v-icon>Stop Stream
       </v-btn>
       <StartStream :user="user" v-else />

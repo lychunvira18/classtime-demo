@@ -10,8 +10,9 @@
       <v-tab-item style="height:400px" v-for="item in items" :key="item">
         <v-container class="px-12" v-if="item=='Login'">
           <v-form ref="form" @submit.prevent="login()">
-            <v-text-field label="E-mail" v-model="username"></v-text-field>
+            <v-text-field id="usernameInput" label="E-mail" v-model="username"></v-text-field>
             <v-text-field
+              id="passwordInput"
               label="Password"
               v-model="password"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
