@@ -22,6 +22,14 @@
             v-model="is_private"
             label="Private stream"
           ></v-switch>
+          <v-switch
+            v-if="user.role !== 'Student'"
+            class="pa-0"
+            dense
+            color="grey darken-2"
+            v-model="is_from_webcam"
+            label="From your webcam"
+          ></v-switch>
           <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
         </v-form>
       </v-card-text>
@@ -32,7 +40,11 @@
           text
           v-on="on"
           class="font-weight-black"
+<<<<<<< HEAD
           @click="user.role === 'student' ? startStream() : select_class=true"
+=======
+          @click="user.role === 'Student' || is_from_webcam ? startStream() : select_class = true"
+>>>>>>> f57b9b64d3ee06d35c204a274a388ae03cd0652f
         >Continue</v-btn>
 
         <v-dialog v-model="select_class" max-width="780px">
@@ -138,7 +150,8 @@ export default {
     is_private: false,
     streamTitle: "",
     description: "",
-    password: ""
+    password: "",
+    is_from_webcam: false
   }),
   props: {
     user: Object
@@ -150,7 +163,8 @@ export default {
         this.streamTitle,
         this.description,
         this.is_private,
-        this.password
+        this.password,
+        true
       );
       axios.post("http://10.10.15.11:5000/devices/startStreaming", {
         streamTitle: this.streamTitle,
