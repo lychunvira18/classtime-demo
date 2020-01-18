@@ -159,7 +159,8 @@ export default {
         this.streamTitle,
         this.description,
         this.is_private,
-        this.password
+        this.password,
+        true
       );
       axios.post("http://10.10.15.11:5000/devices/startStreaming", {
         streamTitle: this.streamTitle,

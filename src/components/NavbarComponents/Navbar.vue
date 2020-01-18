@@ -7,10 +7,10 @@
         <span class="font-weight-bold">Time</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn outlined v-if="user.isStreaming" class="red" id="stopStreamBtn">
+      <v-btn outlined v-if="user.isStreaming" class="red" id="stopStreamBtn" @click="stopStream()">
         <v-icon left>mdi-record</v-icon>Stop Stream
       </v-btn>
-      <StartStream :user="user" />
+      <StartStream v-else :user="user" />
       <v-btn icon class="ml-4">
         <v-icon>mdi-bell</v-icon>
       </v-btn>
@@ -108,7 +108,8 @@ export default {
     signout() {
       backend.logout();
       auth();
-    }
+    },
+    stopStream() {}
   },
   components: {
     StartStream
