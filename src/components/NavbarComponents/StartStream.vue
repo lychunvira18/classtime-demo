@@ -32,7 +32,7 @@
           text
           v-on="on"
           class="font-weight-black"
-          :@click="user.role === 'student' ? startStream() : select_class=true"
+          @click="user.role === 'student' ? startStream() : select_class=true"
         >Continue</v-btn>
 
         <v-dialog v-model="select_class" max-width="780px">
