@@ -1,6 +1,6 @@
 import axios from "axios";
 import cookie from "./cookie";
-const url = "http://192.168.43.58:3000/";
+const url = "http://10.10.18.24:3000/";
 
 class Service {
   //Get Posts
