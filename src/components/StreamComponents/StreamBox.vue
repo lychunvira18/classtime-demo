@@ -39,20 +39,8 @@ export default {
   },
   created() {
     const JitsiMeet = require("jitsi-meet-wrapper");
-    var interfaceConfig = {
-      TOOLBAR_BUTTONS: [
-        "microphone",
-        "camera",
-        "desktop",
-        "fullscreen",
-        "hangup",
-        "settings"
-      ],
-      SETTINGS_SECTIONS: ["language", "devices"],
-      DEFAULT_REMOTE_DISPLAY_NAME: "John Doe"
-    };
+
     var options = {};
-    options.interfaceConfig = interfaceConfig;
 
     const meet = new JitsiMeet("https://meet.jit.si");
     meet.on("ready", () => {
