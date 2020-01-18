@@ -9,9 +9,15 @@
     <v-tabs-items v-model="tab">
       <v-tab-item style="height:400px" v-for="item in items" :key="item">
         <v-container class="px-12" v-if="item=='Login'">
-          <v-form ref="form">
+          <v-form ref="form" @submit.prevent="login()">
             <v-text-field label="E-mail" v-model="username"></v-text-field>
-            <v-text-field label="Password" v-model="password" type="password" append-icon="mdi-eye"></v-text-field>
+            <v-text-field
+              label="Password"
+              v-model="password"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
+            ></v-text-field>
 
             <v-checkbox
               color="black"
@@ -25,14 +31,15 @@
           </v-form>
         </v-container>
         <v-container class="px-12" v-else>
-          <v-form ref="form">
+          <v-form ref="form" @submit.prevent="register()">
             <v-text-field label="Username" v-model="register_username"></v-text-field>
             <v-text-field label="Email" v-model="register_email"></v-text-field>
             <v-text-field
               label="Password"
               v-model="register_password"
-              type="password"
-              append-icon="mdi-eye"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
             ></v-text-field>
 
             <v-checkbox
@@ -59,6 +66,7 @@ import synclog from "../../synclog";
 export default {
   data() {
     return {
+      showPassword: false,
       password: "",
       username: "",
       tab: null,
