@@ -86,6 +86,7 @@
                     <v-spacer></v-spacer>
                     <v-btn color="black darken-1" text @click="select_classes = false">Cancel</v-btn>
                     <v-btn
+                      id="startBtn"
                       color="black darken-1"
                       text
                       @click="

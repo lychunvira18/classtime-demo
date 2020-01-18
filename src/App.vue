@@ -28,8 +28,8 @@ export default {
 
   data: () => ({
     user: {
-      name: "Ly Chunvira",
-      role: "Lecturer",
+      name: "",
+      role: "",
       isStreaming: false
     }
   }),
