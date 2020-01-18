@@ -56,12 +56,12 @@
       </v-expansion-panel>
     </v-expansion-panels>
   </v-card>
+
 </template>
 
 <script>
 import backend from "../../Service"
 export default {
-  name: "streamdetails",
   data() {
     return {
       streamTitle: "",
