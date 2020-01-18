@@ -32,26 +32,24 @@
     >
       <v-expansion-panels>
         <v-expansion-panel>
-          <v-container>
-            <v-row class="px-3">
-              <v-col cols="10" class="text-left">
-                <div class="headline">{{ device.deviceName }}</div>
-                <div
-                  :class="
+          <v-row class>
+            <v-col class="text-left px-10 py-5">
+              <div class="headline">{{ device.deviceName }}</div>
+              <div
+                :class="
                     (device.online ? 'green--text' : 'red--text') +
                       ' font-weight-bold body-1 text-uppercase mt-4'
                   "
-                >{{ device.online ? "Online" : "Offline" }}</div>
-              </v-col>
-              <v-col cols="2" class="d-flex justify-end align-center">
-                <div class="ml-4">
-                  <v-btn icon @click.stop="editDevice = true" v-if="user.role === 'Admin'">
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
+              >{{ device.online ? "Online" : "Offline" }}</div>
+            </v-col>
+            <v-col cols="2" class="d-flex justify-end align-center">
+              <div class="ml-4">
+                <v-btn icon @click.stop="editDevice = true" v-if="user.role === 'Admin'">
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </div>
+            </v-col>
+          </v-row>
 
           <v-divider></v-divider>
 
@@ -92,7 +90,15 @@ export default {
     return {
       socket: io("http://10.10.15.11:5000"),
       editDevice: false,
-      devices: []
+      devices: [
+        {
+          deviceName: "Device 1",
+          deviceId: "123",
+          streaming: false,
+          cameraPlugged: false,
+          online: false
+        }
+      ]
     };
   },
   methods: {
