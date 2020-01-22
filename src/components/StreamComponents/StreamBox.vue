@@ -139,7 +139,7 @@ export default {
       if (streamDetail.data) {
         this.streamTitle = streamDetail.data.streamTitle;
         this.author = streamDetail.data.ownerName;
-        this.description = streamDetail.data.description;
+        this.description = streamDetail.data.description;  
       }
     }
   }

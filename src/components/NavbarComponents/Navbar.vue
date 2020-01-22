@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-app-bar class="black lighten-2 pr-2" dark flat app clipped-left>
-      <v-app-bar-nav-icon @click="drawer = !drawer; stream_drawer = !stream_drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = !drawer; stream_drawer = !stream_drawer" id="drawerBtn"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
         <span class="font-weight-thin">Class</span>
         <span class="font-weight-bold">Time</span>
@@ -93,7 +93,7 @@ export default {
   data: () => {
     return {
       stream_drawer: false,
-      drawer: true,
+      drawer: false,
       item: 1,
       items: [
         { text: "Home", route: "/home" },
@@ -109,7 +109,9 @@ export default {
       backend.logout();
       auth();
     },
-    stopStream() {}
+    stopStream() {
+      backend.stopStream();
+    }
   },
   components: {
     StartStream

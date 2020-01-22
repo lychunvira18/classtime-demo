@@ -12,8 +12,8 @@
       </v-card-title>
       <v-card-text>
         <v-form ref="form">
-          <v-text-field id="streamTitleInput" label="Title" color="black" required></v-text-field>
-          <v-text-field id="descriptionInput" label="Description" color="black" required></v-text-field>
+          <v-text-field id="streamTitleInput" label="Title" color="black" required v-model="streamTitle"></v-text-field>
+          <v-text-field id="descriptionInput" label="Description" color="black" v-model="description" required></v-text-field>
           <v-switch
             id="isPrivateToggle"
             class="pa-0 mt-5"
@@ -41,7 +41,7 @@
           v-on="on"
           class="font-weight-black"
           @click="user.role === 'Student' || is_from_webcam ? startStream() : select_class = true"
-        >Continue</v-btn>
+        id="startStreamBtn">Continue</v-btn>
 
         <v-dialog v-model="select_class" max-width="780px">
           <v-card>
@@ -63,7 +63,7 @@
               <v-btn color="black darken-1" text @click="select_class = false">Cancel</v-btn>
               <v-dialog v-model="select_classes" max-width="800px">
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" class="font-weight-black">Continue</v-btn>
+                  <v-btn text v-on="on" class="font-weight-black" id="startStreamBtn">Continue</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -113,7 +113,7 @@
 </template>
 <script>
 import backend from "../../Service";
-import axios from "axios";
+// import axios from "axios";
 import io from "socket.io-client";
 
 export default {
@@ -154,7 +154,6 @@ export default {
   },
   methods: {
     async startStream() {
-      console.log("HI");
       const stream = await backend.startStream(
         this.streamTitle,
         this.description,
@@ -162,16 +161,17 @@ export default {
         this.password,
         true
       );
-      axios.post("http://10.10.15.11:5000/devices/startStreaming", {
-        streamTitle: this.streamTitle,
-        description: this.description,
-        isPrivate: this.is_private,
-        deviceId: this.selectedDevice
-      });
-      axios.post("http://10.10.15.11:5000/devices/startProjecting", {
-        deviceIds: [],
-        streamBoxId: "meet"
-      });
+      this.user.isStreaming = stream.data.isStreaming
+      // axios.post("http://10.10.15.11:5000/devices/startStreaming", {
+      //   streamTitle: this.streamTitle,
+      //   description: this.description,
+      //   isPrivate: this.is_private,
+      //   deviceId: this.selectedDevice
+      // });
+      // axios.post("http://10.10.15.11:5000/devices/startProjecting", {
+      //   deviceIds: [],
+      //   streamBoxId: "meet"
+      // });
       this.start_stream = false;
       window.location.replace(`/stream/${stream.data.streamCode}`);
     },

@@ -1,22 +1,8 @@
 import axios from "axios";
 import cookie from "./cookie";
-const url = "http://192.168.43.58:3000/";
+const url = "http://localhost:3000/";
 
 class Service {
-  //Get Posts
-  // static getClasses(){
-  //     return new Promise(async (resolve, rejects) => {
-  //         try{
-  //          const res = await axios.get(url)
-  //          const data = res.data
-  //          resolve(
-  //              data.map(post => post)
-  //          )
-  //         }catch(err){
-  //             rejects(err)
-  //         }
-  //     })
-  // }
 
   // Get UserInfo
   static getUserInfo() {
@@ -59,6 +45,19 @@ class Service {
     );
   }
 
+  // Stop stream
+  static async stopStream(){
+    const token = cookie.getCookie("auth-token"); //window.localStorage.getItem("auth-token")
+    const result = await axios.get(`${url}users/stopStream`, {
+      params: {},
+      headers: { "auth-token": token }
+    });
+    
+    if (result.data.status){
+      window.location.replace("/home");
+    }
+  }
+
   // Get Stream detail
   static getStreamDetail(streamCode) {
     const token = cookie.getCookie("auth-token");
@@ -68,24 +67,6 @@ class Service {
       { params: {}, headers: { "auth-token": token } }
     );
   }
-
-  // // Create a new class for the current user
-  // static createClass(classroomName){
-  //     const token = cookie.getCookie("auth-token") //window.localStorage.getItem("auth-token")
-  //     if (classroomName != null && classroomName != ""){
-  //         return axios.post(`${url}users/createclass`,{
-  //             classroomName
-  //         },{ params:{}, headers: { 'auth-token': token } })
-  //     }
-  // }
-
-  // // To join class
-  // static joinClass(code){
-  //     const token = cookie.getCookie("auth-token") //window.localStorage.getItem("auth-token")
-  //     return axios.post(`${url}users/joinclass`, {
-  //         code
-  //     },{ params:{}, headers: { 'auth-token': token } })
-  // }
 
   // Post Data for signing up
   static async signUp(email, pwd, name) {
@@ -113,10 +94,12 @@ class Service {
     }
   }
 
+  // Logout from all browser tab
   static async logout() {
     cookie.setCookie("auth-token", "", 30);
     localStorage.setItem("LastLogged", Date.now());
   }
+
 }
 
 export default Service;
