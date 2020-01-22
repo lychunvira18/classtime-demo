@@ -40,8 +40,10 @@
           text
           v-on="on"
           class="font-weight-black"
+
           @click="user.role === 'Student' || is_from_webcam ? startStream() : select_class = true"
         id="startStreamBtn">Continue</v-btn>
+
 
         <v-dialog v-model="select_class" max-width="780px">
           <v-card>

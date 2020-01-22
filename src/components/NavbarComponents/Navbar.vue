@@ -3,8 +3,10 @@
     <v-app-bar class="black lighten-2 pr-2" dark flat app clipped-left>
       <v-app-bar-nav-icon @click="drawer = !drawer; stream_drawer = !stream_drawer" id="drawerBtn"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
-        <span class="font-weight-thin">Class</span>
-        <span class="font-weight-bold">Time</span>
+        <v-btn text to="/home">
+          <span class="font-weight-thin title">Class</span>
+          <span class="font-weight-bold title">Time</span>
+        </v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn outlined v-if="user.isStreaming" class="red" id="stopStreamBtn" @click="stopStream()">

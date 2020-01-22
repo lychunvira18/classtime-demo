@@ -28,7 +28,7 @@
               class="mb-5 mt-6"
             ></v-checkbox>
 
-            <v-btn color="black" dark block height="50" @click="login()" id="loginBtn">Login</v-btn>
+            <v-btn id="loginBtn" color="black" dark block height="50" @click="login()">Login</v-btn>
           </v-form>
         </v-container>
         <v-container class="px-12" v-else>
