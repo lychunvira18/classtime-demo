@@ -70,48 +70,31 @@ export default {
           author: "Vignesh Manoharan",
           img_url:
             "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 2,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 3,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        },
-        {
-          id: 4,
-          title: "Introduction to Design Patterns",
-          author: "Vignesh Manoharan",
-          img_url:
-            "https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
         }
       ]
     };
   },
   methods: {
-    async getcurrentlyStreaming() {
-      const streams = await backend.getCurrentlyStreaming();
-      streams.data.forEach(stream => {
+    async getcurrentlyStreaming(limit) {
+      const streams = await backend.getCurrentlyStreaming(limit);
+      console.log(streams.data)
+      if (streams.data){
+        streams.data.forEach(stream => {
         this.streams.push({
           id: stream.streamCode,
           title: stream.streamTitle,
           description: stream.description,
           isPrivate: true,
           author: stream.ownerName,
-          date: stream.date
+          date: stream.date,
+          img_url : "http://kit8.net/images/detailed/4/data_centre.png"
         });
       });
+      }
     }
   },
   created() {
-    this.getcurrentlyStreaming();
+    this.getcurrentlyStreaming(6);
   }
 };
 </script>

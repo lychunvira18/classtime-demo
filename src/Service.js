@@ -1,6 +1,6 @@
 import axios from "axios";
 import cookie from "./cookie";
-const url = "http://localhost:3000/";
+const url = "http://10.10.19.131:3000/";
 
 class Service {
 
@@ -14,9 +14,9 @@ class Service {
 	}
 
 	// Start Stream
-	static getCurrentlyStreaming() {
+	static getCurrentlyStreaming(limit) {
 		const token = cookie.getCookie('auth-token')
-		return axios.get(`${url}users/getCurrentlyStream`, {
+		return axios.post(`${url}users/getCurrentlyStream`, {limit},{
 			params: {},
 			headers: { 'auth-token': token }
 		})

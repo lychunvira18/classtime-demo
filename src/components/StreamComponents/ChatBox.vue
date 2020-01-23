@@ -79,52 +79,52 @@
 </template>
 
 <script>
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 export default {
   name: "chatbox",
   data() {
     return {
       username: "",
-      socket: io("http://10.10.17.72:3000"),
+      // socket: io("http://10.10.17.72:3000"),
       users: [],
       messages: [],
       msg: ""
     };
   },
   methods: {
-    joinServer() {
-      this.socket.on("logged-in", data => {
-        this.messages = data.messages;
-        this.users = data.users;
-        this.socket.emit("new-user", this.username);
-      });
+    // joinServer() {
+    //   this.socket.on("logged-in", data => {
+    //     this.messages = data.messages;
+    //     this.users = data.users;
+    //     this.socket.emit("new-user", this.username);
+    //   });
 
-      this.listen();
-    },
-    listen() {
-      this.socket.on("user-online", user => {
-        this.users.push(user);
-      });
+    //   this.listen();
+    // },
+    // listen() {
+    //   this.socket.on("user-online", user => {
+    //     this.users.push(user);
+    //   });
 
-      this.socket.on("user-left", user => {
-        this.users.splice(this.users.indexOf(user), 1);
-      });
+    //   this.socket.on("user-left", user => {
+    //     this.users.splice(this.users.indexOf(user), 1);
+    //   });
 
-      this.socket.on("msg", message => {
-        this.messages.push(message);
-      });
-    },
-    sendMessage() {
-      if (!this.msg) {
-        // console.log('No Message')
-        return;
-      }
+    //   this.socket.on("msg", message => {
+    //     this.messages.push(message);
+    //   });
+    // },
+    // sendMessage() {
+    //   if (!this.msg) {
+    //     // console.log('No Message')
+    //     return;
+    //   }
 
-      // console.log(this.msg)
-      this.socket.emit("msg", this.msg);
-      this.msg = "";
-    }
+    //   // console.log(this.msg)
+    //   this.socket.emit("msg", this.msg);
+    //   this.msg = "";
+    // }
   },
   mounted() {
     // this.username = prompt("What is your username?", "[Anonymous]");

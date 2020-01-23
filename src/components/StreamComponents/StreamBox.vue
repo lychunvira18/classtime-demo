@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div id="meet" class="stream">
+    <div id="newStreamRoom" class="stream">
       <v-card v-if="!hasLoaded" class="loading-message" flat color="#000000">
         <v-row justify="space-around">
           <v-card-title
@@ -88,7 +88,7 @@ export default {
   // },
   data() {
     return {
-      hasLoaded: false,
+      hasLoaded: true,
       streamName: this.$route.params.streamName,
       streamTitle: "",
       description: "",
@@ -103,20 +103,8 @@ export default {
       ]
     };
   },
-  created() {
-    const JitsiMeet = require("jitsi-meet-wrapper");
-
-    var options = {};
-
-    const meet = new JitsiMeet("https://meet.jit.si");
-    meet.on("ready", () => {
-      this.hasLoaded = true;
-      const conference = meet.join(`${this.streamName}`, "#meet", options);
-      conference.on("joined", () => {
-        // console.log("We are in!");
-      });
-    });
-    this.getStreamDetails();
+  async created() {
+    this.getStreamDetails()
   },
   methods: {
     async getStreamDetails() {
@@ -127,11 +115,27 @@ export default {
       if (streamDetail.data) {
         this.streamTitle = streamDetail.data.streamTitle;
         this.author = streamDetail.data.ownerName;
-        this.description = streamDetail.data.description;  
+        this.description = streamDetail.data.description;
+        this.streamOn();
       }
+    },
+    async streamOn(){
+        const domain = 'meet.jit.si';
+        const options = {
+            roomName: 'naratest',
+            parentNode: document.querySelector('#newStreamRoom'),
+            userInfo : {
+                email : "awds@gmail.com"
+            }
+        };
+        $( document ).ready(function() {
+            const api = new JitsiMeetExternalAPI(domain, options);
+            api.executeCommand('displayName', 'Kyle Hemsworth');
+        });
     }
   }
 };
+
 </script>
 
 <style scoped>
