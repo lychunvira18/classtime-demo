@@ -58,12 +58,12 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <div class="subtitle-1">
-              <span class="font-weight-bold">
+              <span class="font-weight-bold" :class="device.online ? 'green--text' : 'red--text'">
                 {{
-                device.cameraPlugged ? "Connected to: " : ""
+                device.cameraPlugged ? "Connected " : "Not Connected"
                 }}
               </span>
-              {{ device.cameraPlugged ? "" : "Not Connected" }}
+              <!-- {{ device.cameraPlugged}} -->
             </div>
             <div class="subtitle-1">
               <span class="font-weight-bold">
@@ -88,28 +88,21 @@ export default {
   name: "device-manager",
   data() {
     return {
-      socket: io("http://10.10.15.11:5000"),
+      socket: io("http://10.10.15.11:3000"),
       editDevice: false,
-      devices: [
-        {
-          deviceName: "Device 1",
-          deviceId: "123",
-          streaming: false,
-          cameraPlugged: false,
-          online: false
-        }
-      ]
+      devices: []
     };
   },
   methods: {
     getDevices() {
       this.socket.on("info", device_info => {
         this.devices = device_info;
+        console.log(this.devices);
       });
     },
     editDeviceName() {
       this.editDevice = false;
-      axios.put("http://10.10.15.11:5000/devices");
+      axios.put("http://10.10.15.11:3000/devices");
     }
   },
   mounted() {
