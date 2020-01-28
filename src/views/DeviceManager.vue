@@ -60,7 +60,7 @@
             <div class="subtitle-1">
               <span class="font-weight-bold" :class="device.online ? 'green--text' : 'red--text'">
                 {{
-                device.cameraPlugged ? "Connected " : "Not Connected"
+                device.cameraPlugged ? "Camera Connected " : "Camera Not Connected"
                 }}
               </span>
               <!-- {{ device.cameraPlugged}} -->
@@ -88,7 +88,7 @@ export default {
   name: "device-manager",
   data() {
     return {
-      socket: io("http://10.10.15.11:3000"),
+      socket: io("http://10.10.15.11:3001"),
       editDevice: false,
       devices: []
     };
@@ -102,7 +102,7 @@ export default {
     },
     editDeviceName() {
       this.editDevice = false;
-      axios.put("http://10.10.15.11:3000/devices");
+      axios.put("http://10.10.15.11:3001/devices");
     }
   },
   mounted() {

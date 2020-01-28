@@ -64,7 +64,7 @@
             <v-card-text>
               <p class="my-2">Where are you streaming from?</p>
               <v-select
-                :items="devices"
+                :items="devices.map(x => x['deviceName'])"
                 v-model="selectedDevice"
                 :menu-props="{ maxHeight: '200' }"
                 label="Select a class"
@@ -120,13 +120,13 @@
 </template>
 <script>
 import backend from "../../Service";
-// import axios from "axios";
+import axios from "axios";
 import io from "socket.io-client";
 
 export default {
   data: () => ({
     devices: [],
-    socket: io("http://10.10.15.11:5000"),
+    socket: io("http://10.10.15.11:3001"),
     selectedDevice: "",
     tag_list: [],
     start_stream: false,
@@ -154,7 +154,8 @@ export default {
     streamTitle: "",
     description: "",
     password: "",
-    is_from_webcam: false
+    is_from_webcam: false,
+    deviceNames: []
   }),
   props: {
     user: Object
@@ -185,7 +186,7 @@ export default {
     getAvailableDevices() {
       this.socket.on("info", device_info => {
         this.devices = device_info.filter(device => {
-          return device.online && device.cameraPlugged && !device.streaming;
+          return device.online && device.cameraPlugged;
         });
       });
     },
@@ -193,9 +194,12 @@ export default {
       const deviceIds = [];
       const selectedClasses = this.devices.filter(x => x["value"] == true);
       selectedClasses.forEach(x => deviceIds.push(x.deviceId));
-      axios.post("http://10.10.15.11:3000/devices/startStreaming", {
-        deviceIds,
-        deviceId: this.selectedDevice || "None",
+      axios.post("http://10.10.15.11:3001/devices/startStreaming", {
+        deviceIds: deviceIds,
+        deviceId:
+          this.devices.filter(x => x["deviceName"] === this.selectedDevice)[0][
+            "deviceId"
+          ] || "None",
         owner: this.user.name,
         streamTitle: this.streamTitle,
         description: this.description
@@ -205,6 +209,7 @@ export default {
   created() {
     this.getAvailableDevices();
     this.devices.forEach(x => (x["value"] = true));
+    console.log(this.devices);
   }
 };
 </script>

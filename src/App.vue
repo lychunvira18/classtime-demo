@@ -20,7 +20,7 @@ export default {
       const user = await backend.getUserInfo();
       this.user.name = user.data.name;
       this.user.role = user.data.role;
-      this.user.isStreaming = user.data.isStreaming
+      this.user.isStreaming = user.data.isStreaming;
     }
   },
   components: {
@@ -30,7 +30,7 @@ export default {
   data: () => ({
     user: {
       name: "",
-      role: "",
+      role: "Lecturer",
       isStreaming: false
     }
   }),

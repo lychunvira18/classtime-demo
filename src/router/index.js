@@ -5,6 +5,7 @@ import About from "../views/About";
 import Login from "../views/Login";
 import StreamRoom from "../views/StreamRoom";
 import DeviceManager from "../views/DeviceManager";
+import DeviceHome from "../views/DeviceHome";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/devices",
     name: "devices",
     component: DeviceManager
+  },
+  {
+    path: "/device-home",
+    name: "device-home",
+    component: DeviceHome
   }
 ];
 
