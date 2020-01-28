@@ -12,8 +12,20 @@
       </v-card-title>
       <v-card-text>
         <v-form ref="form">
-          <v-text-field id="streamTitleInput" label="Title" color="black" required v-model="streamTitle"></v-text-field>
-          <v-text-field id="descriptionInput" label="Description" color="black" v-model="description" required></v-text-field>
+          <v-text-field
+            id="streamTitleInput"
+            label="Title"
+            color="black"
+            required
+            v-model="streamTitle"
+          ></v-text-field>
+          <v-text-field
+            id="descriptionInput"
+            label="Description"
+            color="black"
+            v-model="description"
+            required
+          ></v-text-field>
           <v-switch
             id="isPrivateToggle"
             class="pa-0 mt-5"
@@ -40,10 +52,9 @@
           text
           v-on="on"
           class="font-weight-black"
-
           @click="user.role === 'Student' || is_from_webcam ? startStream() : select_class = true"
-        id="startStreamBtn">Continue</v-btn>
-
+          id="startStreamBtn"
+        >Continue</v-btn>
 
         <v-dialog v-model="select_class" max-width="780px">
           <v-card>
@@ -75,12 +86,12 @@
                     <p class="my-2">Would you like to cast the stream to other rooms?</p>
                     <div class="checkboxes_overflow">
                       <v-checkbox
-                        v-for="classroom in classes_cast"
-                        :key="classroom.name"
+                        v-for="device in devices"
+                        :key="device.deviceId"
                         class="mb-0 pb-0"
                         color="black"
-                        v-model="classroom.value"
-                        :label="classroom.name"
+                        v-model="device.value"
+                        :label="device.deviceName"
                       ></v-checkbox>
                     </div>
                   </v-card-text>
@@ -90,19 +101,13 @@
                     <v-btn
                       id="startBtn"
                       color="black darken-1"
+                      class="font-weight-black"
                       text
                       @click="
-                        start_stream = select_class = select_classes = false
+                        start_stream = select_class = select_classes = false;
+                        deviceStartStream()
                       "
-                    >
-                      {{
-                      classes_cast.filter(
-                      classroom => classroom.value == true
-                      ).length > 0
-                      ? "Yes"
-                      : "No"
-                      }}
-                    </v-btn>
+                    >Continue</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -163,7 +168,7 @@ export default {
         this.password,
         true
       );
-      this.user.isStreaming = stream.data.isStreaming
+      this.user.isStreaming = stream.data.isStreaming;
       // axios.post("http://10.10.15.11:5000/devices/startStreaming", {
       //   streamTitle: this.streamTitle,
       //   description: this.description,
@@ -183,10 +188,23 @@ export default {
           return device.online && device.cameraPlugged && !device.streaming;
         });
       });
+    },
+    async deviceStartStream() {
+      const deviceIds = [];
+      const selectedClasses = this.devices.filter(x => x["value"] == true);
+      selectedClasses.forEach(x => deviceIds.push(x.deviceId));
+      axios.post("http://10.10.15.11:3000/devices/startStreaming", {
+        deviceIds,
+        deviceId: this.selectedDevice || "None",
+        owner: this.user.name,
+        streamTitle: this.streamTitle,
+        description: this.description
+      });
     }
   },
   created() {
     this.getAvailableDevices();
+    this.devices.forEach(x => (x["value"] = true));
   }
 };
 </script>
@@ -197,7 +215,7 @@ export default {
 }
 
 .checkboxes_overflow {
-  height: 200px;
+  max-height: 200px;
   overflow: auto;
 }
 </style>

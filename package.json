@@ -41,7 +41,7 @@
     ],
     "rules": {
       "no-console": "off",
-      "no-undef" : "off"
+      "no-undef": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"

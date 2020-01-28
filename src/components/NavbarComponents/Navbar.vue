@@ -113,6 +113,9 @@ export default {
     },
     stopStream() {
       backend.stopStream();
+      axios.post("http://10.10.19.131/devices/stopStreaming", {
+        ownerName: this.user.name
+      })
     }
   },
   components: {
