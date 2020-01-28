@@ -116,21 +116,22 @@ export default {
         this.streamTitle = streamDetail.data.streamTitle;
         this.author = streamDetail.data.ownerName;
         this.description = streamDetail.data.description;
-        this.streamOn();
+        this.streamOn(streamDetail.data.streamCode,this.streamTitle);
       }
     },
-    async streamOn(){
-        const domain = 'meet.jit.si';
-        const options = {
-            roomName: 'naratest',
-            parentNode: document.querySelector('#newStreamRoom'),
-            userInfo : {
-                email : "awds@gmail.com"
-            }
-        };
+    async streamOn(streamCode,streamTitle){
+        const {domain, options, role, name} = await backend.joinStream(streamCode,"")
+        var api = null
         $( document ).ready(function() {
-            const api = new JitsiMeetExternalAPI(domain, options);
-            api.executeCommand('displayName', 'Kyle Hemsworth');
+            options["parentNode"] = document.querySelector('#newStreamRoom');
+            api = new JitsiMeetExternalAPI(domain, options);
+            api.executeCommand('displayName', name);
+
+            // Lecturer Logic
+            if (role == "Lecturer"){
+              api.executeCommand('subject', streamTitle);
+              // Do lecturer stuff
+            }
         });
     }
   }

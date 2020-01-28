@@ -90,11 +90,13 @@ export default {
         this.register_password,
         this.register_username
       );
-      const { message } = user.data;
-      if (message) {
+      const { message, errCode } = user.data;
+      if (errCode) {
         alert(message);
       } else {
-        alert("Registered as successfully");
+        this.username = this.register_email
+        this.password = this.register_password
+        this.login()
       }
     }
   },
