@@ -38,37 +38,56 @@ class Service {
 		)
 	}
 
-  // Stop stream
-  static async stopStream(){
-    const token = cookie.getCookie("auth-token"); //window.localStorage.getItem("auth-token")
-    const result = await axios.get(`${url}users/stopStream`, {
-      params: {},
-      headers: { "auth-token": token }
-    });
-    
-    if (result.data.status){
-      window.location.replace("/home");
-    }
-  }
+	// Join Stream
+	static async joinStream(streamCode,pwd){
+		const token = cookie.getCookie('auth-token')
+		const result = await axios.post(
+			`${url}users/joinStream`,
+			{
+				streamCode,
+				pwd
+			},
+			{ params: {}, headers: { 'auth-token': token } }
+		)
 
-  // Get Stream detail
-  static getStreamDetail(streamCode) {
-    const token = cookie.getCookie("auth-token");
-    return axios.post(
-      `${url}users/getStreamDetail`,
-      { streamCode },
-      { params: {}, headers: { "auth-token": token } }
-    );
-  }
+		if (result.data.errCode != undefined){
+			window.replace("/StreamNotFound")
+		}else{
+			return result.data
+		}
+	}
 
-  // Post Data for signing up
-  static async signUp(email, pwd, name) {
-    return axios.post(`${url}auth/signUp`, {
-      email,
-      pwd,
-      name
-    });
-  }
+	// Stop stream
+	static async stopStream(){
+		const token = cookie.getCookie("auth-token"); //window.localStorage.getItem("auth-token")
+		const result = await axios.get(`${url}users/stopStream`, {
+		params: {},
+		headers: { "auth-token": token }
+		});
+		
+		if (result.data.status){
+		window.location.replace("/home");
+		}
+	}
+
+	// Get Stream detail
+	static getStreamDetail(streamCode) {
+		const token = cookie.getCookie("auth-token");
+		return axios.post(
+		`${url}users/getStreamDetail`,
+		{ streamCode },
+		{ params: {}, headers: { "auth-token": token } }
+		);
+	}
+
+	// Post Data for signing up
+	static async signUp(email, pwd, name) {
+		return axios.post(`${url}auth/signUp`, {
+		email,
+		pwd,
+		name
+		});
+	}
 
 	// Post Data for login
 	static async login(email, pwd) {
