@@ -10,7 +10,7 @@
     </v-row>
     <v-row>
       <v-col v-for="stream in streams" :key="stream.id" :lg="4" :md="6" :xs="12">
-        <v-card dark :to="`/stream/${stream.id}`" :id="`${stream.streamName}`">
+        <v-card dark :to="`/stream/${stream.id}`" :id="`${stream.title}`">
           <v-img :src="stream.img_url" class="white--text align-end" height="240px">
             <v-card-title v-text="stream.title"></v-card-title>
             <v-card-subtitle v-text="stream.author"></v-card-subtitle>
@@ -77,19 +77,19 @@ export default {
   methods: {
     async getcurrentlyStreaming(limit) {
       const streams = await backend.getCurrentlyStreaming(limit);
-      console.log(streams.data)
-      if (streams.data){
+      console.log(streams.data);
+      if (streams.data) {
         streams.data.forEach(stream => {
-        this.streams.push({
-          id: stream.streamCode,
-          title: stream.streamTitle,
-          description: stream.description,
-          isPrivate: true,
-          author: stream.ownerName,
-          date: stream.date,
-          img_url : "http://kit8.net/images/detailed/4/data_centre.png"
+          this.streams.push({
+            id: stream.streamCode,
+            title: stream.streamTitle,
+            description: stream.description,
+            isPrivate: true,
+            author: stream.ownerName,
+            date: stream.date,
+            img_url: "http://kit8.net/images/detailed/4/data_centre.png"
+          });
         });
-      });
       }
     }
   },

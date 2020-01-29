@@ -52,7 +52,7 @@
           text
           v-on="on"
           class="font-weight-black"
-          @click="user.role === 'Student' || is_from_webcam ? startStream() : select_class = true"
+          @click="user.role === 'Student' || user.role === 'device' || is_from_webcam ? startStream() : select_class = true"
           id="startStreamBtn"
         >Continue</v-btn>
 
@@ -155,7 +155,8 @@ export default {
     description: "",
     password: "",
     is_from_webcam: false,
-    deviceNames: []
+    deviceNames: [],
+    streamingUser: ""
   }),
   props: {
     user: Object
@@ -202,14 +203,15 @@ export default {
           ] || "None",
         owner: this.user.name,
         streamTitle: this.streamTitle,
-        description: this.description
+        description: this.description,
+        streamingUser: this.streamingUser
       });
     }
   },
   created() {
     this.getAvailableDevices();
     this.devices.forEach(x => (x["value"] = true));
-    console.log(this.devices);
+    this.streamingUser = this.user.name;
   }
 };
 </script>
