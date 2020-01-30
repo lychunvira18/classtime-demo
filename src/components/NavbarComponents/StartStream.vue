@@ -100,6 +100,7 @@
                         color="black"
                         v-model="device.value"
                         :label="device.deviceName"
+                        :disabled="device.deviceName === selectedDevice"
                       ></v-checkbox>
                     </div>
                   </v-card-text>
@@ -112,10 +113,13 @@
                       class="font-weight-black"
                       text
                       @click="
-                        start_stream = select_class = select_classes = false;
+                        
                         deviceStartStream()
                       "
                     >Continue</v-btn>
+                       <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="100"><p>Loading</p></v-progress-circular>
+    </v-overlay>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -124,6 +128,7 @@
         </v-dialog>
       </v-card-actions>
     </v-card>
+
   </v-dialog>
 </template>
 <script>
@@ -133,6 +138,7 @@ import io from "socket.io-client";
 
 export default {
   data: () => ({
+    loading: false,
     devices: [],
     socket: io("http://10.10.15.11:3001"),
     selectedDevice: "",
@@ -205,6 +211,7 @@ export default {
       });
     },
     async deviceStartStream() {
+      this.loading = true
       const deviceIds = [];
       const selectedClasses = this.devices.filter(x => x["value"] == true);
       selectedClasses.forEach(x => deviceIds.push(x.deviceId));
