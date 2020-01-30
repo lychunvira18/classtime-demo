@@ -20,6 +20,14 @@
             v-model="streamTitle"
           ></v-text-field>
           <v-text-field
+          id="owner"
+          label="owner"
+          color="black"
+          v-if="user.role === 'device'"
+          v-model="streamBy"
+          >
+          </v-text-field>
+          <v-text-field
             id="descriptionInput"
             label="Description"
             color="black"
@@ -92,6 +100,7 @@
                         color="black"
                         v-model="device.value"
                         :label="device.deviceName"
+                        :disabled="device.deviceName === selectedDevice"
                       ></v-checkbox>
                     </div>
                   </v-card-text>
@@ -104,10 +113,13 @@
                       class="font-weight-black"
                       text
                       @click="
-                        start_stream = select_class = select_classes = false;
+                        
                         deviceStartStream()
                       "
                     >Continue</v-btn>
+                       <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="100"><p>Loading</p></v-progress-circular>
+    </v-overlay>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -116,6 +128,7 @@
         </v-dialog>
       </v-card-actions>
     </v-card>
+
   </v-dialog>
 </template>
 <script>
@@ -125,6 +138,7 @@ import io from "socket.io-client";
 
 export default {
   data: () => ({
+    loading: false,
     devices: [],
     socket: io("http://10.10.15.11:3001"),
     selectedDevice: "",
@@ -156,7 +170,9 @@ export default {
     password: "",
     is_from_webcam: false,
     deviceNames: [],
-    streamingUser: ""
+    streamingUser: "",
+    streamBy:"",
+    userCurrentStream:""
   }),
   props: {
     user: Object
@@ -168,6 +184,8 @@ export default {
         this.description,
         this.is_private,
         this.password,
+        this.streamBy,
+        this.user.role,
         true
       );
       this.user.isStreaming = stream.data.isStreaming;
@@ -182,16 +200,18 @@ export default {
       //   streamBoxId: "meet"
       // });
       this.start_stream = false;
-      window.location.replace(`/stream/${stream.data.streamCode}`);
+      this.userCurrentStream = stream.data.streamCode
+      window.location.replace(`/stream/${this.userCurrentStream}`);
     },
     getAvailableDevices() {
       this.socket.on("info", device_info => {
         this.devices = device_info.filter(device => {
-          return device.online && device.cameraPlugged;
+          return device.online && device.cameraPlugged && device.streaming == 'none';
         });
       });
     },
     async deviceStartStream() {
+      this.loading = true
       const deviceIds = [];
       const selectedClasses = this.devices.filter(x => x["value"] == true);
       selectedClasses.forEach(x => deviceIds.push(x.deviceId));
@@ -206,6 +226,10 @@ export default {
         description: this.description,
         streamingUser: this.streamingUser
       });
+      this.socket.on('redirect',({owner,redirect})=> {
+        if(this.user.name == owner) window.location.replace(`/stream/${redirect}`)
+        //window.location.replace(`https://github.com/lychunvira18/classtime-demo`)
+      })
     }
   },
   created() {

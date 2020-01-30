@@ -90,6 +90,7 @@
 import StartStream from "./StartStream";
 import auth from "../../auth";
 import backend from "../../Service";
+import axios from 'axios'
 
 export default {
   data: () => {
@@ -112,8 +113,9 @@ export default {
       auth();
     },
     stopStream() {
+      console.log("stopping.......")
       backend.stopStream();
-      axios.post("http://10.10.19.131/devices/stopStreaming", {
+      axios.post("http://10.10.15.11:3001/devices/stopStreaming", {
         ownerName: this.user.name
       })
     }
