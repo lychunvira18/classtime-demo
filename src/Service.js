@@ -26,20 +26,22 @@ class Service {
   }
 
   // Start Stream
-  static startStream(streamTitle, description, isPrivate, password) {
+  static startStream(streamTitle, description, isPrivate, password,streamBy,role) {
     const token = cookie.getCookie("auth-token");
+    const route = (role==='device')?'deviceStartStream':'startStream'
     console.log(streamTitle + description + isPrivate + password);
     return axios.post(
-      `${url}users/startStream`,
+      `${url}users/${route}`,
       {
         streamTitle,
         description,
         isPrivate,
-        password
+        password,streamBy
       },
       { params: {}, headers: { "auth-token": token } }
     );
   }
+
 
   // Join Stream
   static async joinStream(streamCode, pwd) {
@@ -67,7 +69,7 @@ class Service {
       params: {},
       headers: { "auth-token": token }
     });
-
+    
     if (result.data.status) {
       window.location.replace("/home");
     }

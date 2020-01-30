@@ -20,6 +20,14 @@
             v-model="streamTitle"
           ></v-text-field>
           <v-text-field
+          id="owner"
+          label="owner"
+          color="black"
+          v-if="user.role === 'device'"
+          v-model="streamBy"
+          >
+          </v-text-field>
+          <v-text-field
             id="descriptionInput"
             label="Description"
             color="black"
@@ -156,7 +164,9 @@ export default {
     password: "",
     is_from_webcam: false,
     deviceNames: [],
-    streamingUser: ""
+    streamingUser: "",
+    streamBy:"",
+    userCurrentStream:""
   }),
   props: {
     user: Object
@@ -168,6 +178,8 @@ export default {
         this.description,
         this.is_private,
         this.password,
+        this.streamBy,
+        this.user.role,
         true
       );
       this.user.isStreaming = stream.data.isStreaming;
@@ -182,12 +194,13 @@ export default {
       //   streamBoxId: "meet"
       // });
       this.start_stream = false;
-      window.location.replace(`/stream/${stream.data.streamCode}`);
+      this.userCurrentStream = stream.data.streamCode
+      window.location.replace(`/stream/${this.userCurrentStream}`);
     },
     getAvailableDevices() {
       this.socket.on("info", device_info => {
         this.devices = device_info.filter(device => {
-          return device.online && device.cameraPlugged;
+          return device.online && device.cameraPlugged && device.streaming == 'none';
         });
       });
     },
@@ -206,6 +219,10 @@ export default {
         description: this.description,
         streamingUser: this.streamingUser
       });
+      this.socket.on('redirect',({owner,redirect})=> {
+        if(this.user.name == owner) window.location.replace(`/stream/${redirect}`)
+        //window.location.replace(`https://github.com/lychunvira18/classtime-demo`)
+      })
     }
   },
   created() {
