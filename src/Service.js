@@ -11,7 +11,7 @@ class Service {
       headers: { "auth-token": token }
     });
   }
-
+ 
   // Start Stream
   static getCurrentlyStreaming(limit) {
     const token = cookie.getCookie("auth-token");

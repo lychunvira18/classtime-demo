@@ -228,12 +228,16 @@ export default {
         owner: this.user.name,
         streamTitle: this.streamTitle,
         description: this.description,
-        streamingUser: this.streamingUser
+        userEmail: this.user.email
       });
-      this.socket.on("redirect", ({ owner, redirect }) => {
-        if (this.user.name == owner)
-          window.location.replace(`/stream/${redirect}`);
-        //window.location.replace(`https://github.com/lychunvira18/classtime-demo`)
+      this.socket.on("redirect", async ({ streamBy, streamCode }) => {
+        console.log(streamBy)
+        console.log(this.user.email)
+        console.log(streamCode)
+        location.reload()
+        if (this.user.email == streamBy){
+          window.location.replace(`/stream/${streamCode}`)     
+        }
       });
     }
   },
