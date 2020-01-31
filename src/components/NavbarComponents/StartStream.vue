@@ -20,13 +20,12 @@
             v-model="streamTitle"
           ></v-text-field>
           <v-text-field
-          id="owner"
-          label="owner"
-          color="black"
-          v-if="user.role === 'device'"
-          v-model="streamBy"
-          >
-          </v-text-field>
+            id="owner"
+            label="owner"
+            color="black"
+            v-if="user.role === 'device'"
+            v-model="streamBy"
+          ></v-text-field>
           <v-text-field
             id="descriptionInput"
             label="Description"
@@ -34,14 +33,7 @@
             v-model="description"
             required
           ></v-text-field>
-          <v-switch
-            id="isPrivateToggle"
-            class="pa-0 mt-5"
-            dense
-            color="grey darken-2"
-            v-model="is_private"
-            label="Private stream"
-          ></v-switch>
+
           <v-switch
             v-if="user.role !== 'Student'"
             class="pa-0"
@@ -49,6 +41,15 @@
             color="grey darken-2"
             v-model="is_from_webcam"
             label="From your webcam"
+          ></v-switch>
+          <v-switch
+            v-if="is_from_webcam"
+            id="isPrivateToggle"
+            class="pa-0 mt-5"
+            dense
+            color="grey darken-2"
+            v-model="is_private"
+            label="Private stream"
           ></v-switch>
           <v-text-field label="Password" color="black" required v-if="is_private"></v-text-field>
         </v-form>
@@ -117,9 +118,11 @@
                         deviceStartStream()
                       "
                     >Continue</v-btn>
-                       <v-overlay :value="loading">
-      <v-progress-circular indeterminate size="100"><p>Loading</p></v-progress-circular>
-    </v-overlay>
+                    <v-overlay :value="loading">
+                      <v-progress-circular indeterminate size="100">
+                        <p>Loading</p>
+                      </v-progress-circular>
+                    </v-overlay>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -128,7 +131,6 @@
         </v-dialog>
       </v-card-actions>
     </v-card>
-
   </v-dialog>
 </template>
 <script>
@@ -171,8 +173,8 @@ export default {
     is_from_webcam: false,
     deviceNames: [],
     streamingUser: "",
-    streamBy:"",
-    userCurrentStream:""
+    streamBy: "",
+    userCurrentStream: ""
   }),
   props: {
     user: Object
@@ -200,18 +202,20 @@ export default {
       //   streamBoxId: "meet"
       // });
       this.start_stream = false;
-      this.userCurrentStream = stream.data.streamCode
+      this.userCurrentStream = stream.data.streamCode;
       window.location.replace(`/stream/${this.userCurrentStream}`);
     },
     getAvailableDevices() {
       this.socket.on("info", device_info => {
         this.devices = device_info.filter(device => {
-          return device.online && device.cameraPlugged && device.streaming == 'none';
+          return (
+            device.online && device.cameraPlugged && device.streaming == "none"
+          );
         });
       });
     },
     async deviceStartStream() {
-      this.loading = true
+      this.loading = true;
       const deviceIds = [];
       const selectedClasses = this.devices.filter(x => x["value"] == true);
       selectedClasses.forEach(x => deviceIds.push(x.deviceId));
@@ -226,10 +230,11 @@ export default {
         description: this.description,
         streamingUser: this.streamingUser
       });
-      this.socket.on('redirect',({owner,redirect})=> {
-        if(this.user.name == owner) window.location.replace(`/stream/${redirect}`)
+      this.socket.on("redirect", ({ owner, redirect }) => {
+        if (this.user.name == owner)
+          window.location.replace(`/stream/${redirect}`);
         //window.location.replace(`https://github.com/lychunvira18/classtime-demo`)
-      })
+      });
     }
   },
   created() {

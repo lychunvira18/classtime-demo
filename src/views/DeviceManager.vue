@@ -12,7 +12,7 @@
           <span class="title font-weight-regular">Edit device</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field label="Enter a new device name"></v-text-field>
+          <v-text-field v-model="deviceName" label="Enter a new device name"></v-text-field>
         </v-card-text>
 
         <v-card-actions>
@@ -29,6 +29,7 @@
       :key="device.deviceId"
       class="my-4"
       style="border-radius: 10px"
+      :id="device.deviceId"
     >
       <v-expansion-panels>
         <v-expansion-panel>
@@ -44,7 +45,14 @@
             </v-col>
             <v-col cols="2" class="d-flex justify-end align-center">
               <div class="ml-4">
-                <v-btn icon @click.stop="editDevice = true" v-if="user.role === 'Admin'">
+                <v-btn icon @click="deviceId = device.deviceId; rebootDevice()">
+                  <v-icon>mdi-power</v-icon>
+                </v-btn>
+                <v-btn
+                  icon
+                  @click.stop="deviceId = device.deviceId; editDevice = true"
+                  v-if="user.role === 'Admin' && device.streaming === 'none'"
+                >
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </div>
@@ -90,7 +98,9 @@ export default {
     return {
       socket: io("http://10.10.15.11:3001"),
       editDevice: false,
-      devices: []
+      devices: [],
+      deviceId: "",
+      deviceName: ""
     };
   },
   methods: {
@@ -102,7 +112,13 @@ export default {
     },
     editDeviceName() {
       this.editDevice = false;
-      axios.put("http://10.10.15.11:3001/devices");
+      axios.put("http://10.10.15.11:3001/devices/changeName", {
+        deviceId: this.deviceId,
+        deviceName: this.deviceName
+      });
+    },
+    rebootDevice() {
+      console.log("Rebooting");
     }
   },
   mounted() {

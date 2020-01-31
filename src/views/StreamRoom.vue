@@ -24,7 +24,7 @@
         <StreamBox />
       </v-col>
       <v-col cols="3">
-        <ChatBox />
+        <ChatBox :user="user" />
       </v-col>
     </v-row>
   </v-card>
@@ -40,6 +40,9 @@ export default {
   components: {
     ChatBox,
     StreamBox
+  },
+  props: {
+    user: Object
   }
   //   created() {
   //     this.$emit("update:layout", BlankLayout);
