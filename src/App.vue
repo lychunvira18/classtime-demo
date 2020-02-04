@@ -21,8 +21,8 @@ export default {
       this.user.name = user.data.name;
       this.user.role = user.data.role;
       this.user.isStreaming = user.data.isStreaming;
-      this.user.currentStream = user.data.currentStream
-      this.user.email = user.data.email
+      this.user.currentStream = user.data.currentStream;
+      this.user.email = user.data.email;
     }
   },
   components: {
