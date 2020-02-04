@@ -3,10 +3,10 @@
     <v-app-bar class="black lighten-2 pr-2" dark flat app clipped-left>
       <v-app-bar-nav-icon @click="drawer = !drawer; stream_drawer = !stream_drawer" id="drawerBtn"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
-        <v-btn text to="/home">
+        <router-link to="/home" exact class="white--text" style="text-decoration: none">
           <span class="font-weight-thin title">Class</span>
           <span class="font-weight-bold title">Time</span>
-        </v-btn>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn outlined v-if="user.isStreaming" class="red" id="stopStreamBtn" @click="stopStream()">
@@ -14,9 +14,6 @@
       </v-btn>
       <StartStream v-else :user="user" />
       <v-btn icon class="ml-4">
-        <v-icon>mdi-bell</v-icon>
-      </v-btn>
-      <v-btn icon>
         <v-icon @click="signout()">mdi-exit-to-app</v-icon>
       </v-btn>
     </v-app-bar>
@@ -90,7 +87,7 @@
 import StartStream from "./StartStream";
 import auth from "../../auth";
 import backend from "../../Service";
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   data: () => {
@@ -113,15 +110,18 @@ export default {
       auth();
     },
     stopStream() {
-      console.log("stopping.......")
+      console.log("stopping.......");
       backend.stopStream();
       axios.post("http://10.10.15.11:3001/devices/stopStreaming", {
         ownerName: this.user.name
-      })
+      });
     }
   },
   components: {
     StartStream
+  },
+  created() {
+    console.log(this.$route);
   }
 };
 </script>
