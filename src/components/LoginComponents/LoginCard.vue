@@ -16,7 +16,7 @@
       <v-col cols="7">
         <v-card tile height="600" style="width: 100%" class="text-center">
           <v-img class="align-center white" height="600">
-            <LoginTabs />
+            <FormTabs />
           </v-img>
         </v-card>
       </v-col>
@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import LoginTabs from "./LoginTabs";
+import FormTabs from "./FormTabs";
 export default {
   components: {
-    LoginTabs
+    FormTabs
   }
 };
 </script>
