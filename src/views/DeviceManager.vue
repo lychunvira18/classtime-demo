@@ -44,7 +44,7 @@
               >{{ device.online ? "Online" : "Offline" }}</div>
             </v-col>
             <v-col cols="2" class="d-flex justify-end align-center">
-              <div class="ml-4">
+              <div class="mr-5">
                 <v-btn icon @click="deviceId = device.deviceId; rebootDevice()">
                   <v-icon>mdi-power</v-icon>
                 </v-btn>

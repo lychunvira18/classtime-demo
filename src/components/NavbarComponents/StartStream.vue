@@ -61,6 +61,7 @@
           text
           v-on="on"
           class="font-weight-black"
+          :disabled="!streamTitle"
           @click="user.role === 'Student' || user.role === 'device' || is_from_webcam ? startStream() : select_class = true"
           id="startStreamBtn"
         >Continue</v-btn>
@@ -85,7 +86,13 @@
               <v-btn color="black darken-1" text @click="select_class = false">Cancel</v-btn>
               <v-dialog v-model="select_classes" max-width="800px">
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" class="font-weight-black" id="startStreamBtn">Continue</v-btn>
+                  <v-btn
+                    text
+                    v-on="on"
+                    :disabled="!selectedDevice"
+                    class="font-weight-black"
+                    id="startStreamBtn"
+                  >Continue</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -231,12 +238,12 @@ export default {
         userEmail: this.user.email
       });
       this.socket.on("redirect", async ({ streamBy, streamCode }) => {
-        console.log(streamBy)
-        console.log(this.user.email)
-        console.log(streamCode)
-        location.reload()
-        if (this.user.email == streamBy){
-          window.location.replace(`/stream/${streamCode}`)     
+        console.log(streamBy);
+        console.log(this.user.email);
+        console.log(streamCode);
+        location.reload();
+        if (this.user.email == streamBy) {
+          window.location.replace(`/stream/${streamCode}`);
         }
       });
     }
