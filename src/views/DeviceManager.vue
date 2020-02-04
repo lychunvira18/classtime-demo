@@ -3,7 +3,8 @@
     <v-row class="my-12">
       <h1 class="display-1">Device Manager</h1>
       <v-spacer></v-spacer>
-      <v-btn text>Add New Device</v-btn>
+      <!-- Not used as of right now -->
+      <!-- <v-btn text>Add New Device</v-btn> -->
     </v-row>
 
     <v-dialog v-model="editDevice" width="500px">

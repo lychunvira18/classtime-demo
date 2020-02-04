@@ -1,7 +1,7 @@
 <template>
   <v-container class="px-12">
     <v-form ref="form" @submit.prevent="login()">
-      <v-text-field id="usernameInput" label="E-mail" v-model="username"></v-text-field>
+      <v-text-field id="usernameInput" label="E-mail" v-model="username" color="black"></v-text-field>
       <v-text-field
         id="passwordInput"
         label="Password"
@@ -9,6 +9,7 @@
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
         @click:append="showPassword = !showPassword"
+        color="black"
       ></v-text-field>
 
       <v-checkbox

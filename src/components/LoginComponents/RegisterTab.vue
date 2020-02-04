@@ -1,14 +1,15 @@
 <template>
   <v-container class="px-12">
     <v-form ref="form" @submit.prevent="register()">
-      <v-text-field label="Username" v-model="register_username"></v-text-field>
-      <v-text-field label="Email" v-model="register_email"></v-text-field>
+      <v-text-field label="Username" v-model="register_username" color="black"></v-text-field>
+      <v-text-field label="Email" v-model="register_email" color="black"></v-text-field>
       <v-text-field
         label="Password"
         v-model="register_password"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
         @click:append="showPassword = !showPassword"
+        color="black"
       ></v-text-field>
 
       <v-checkbox

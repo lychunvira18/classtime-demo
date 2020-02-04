@@ -2,9 +2,9 @@
   <div class="px-8 pb-8">
     <OngoingStreams :streams="this.streams" />
 
-    <PreviousVideos :videos="this.videos" />
+    <!-- <PreviousVideos :videos="this.videos" />
 
-    <CommunityVideos :videos="this.videos" />
+    <CommunityVideos :videos="this.videos" />-->
   </div>
 </template>
 
@@ -12,17 +12,19 @@
 import backend from "../Service";
 import io from "socket.io-client";
 import OngoingStreams from "../components/HomePageComponents/OngoingStreams";
-import PreviousVideos from "../components/HomePageComponents/PreviousVideos";
-import CommunityVideos from "../components/HomePageComponents/CommunityVideos";
+// I disabled these because it is not implemented as of right now
+
+// import PreviousVideos from "../components/HomePageComponents/PreviousVideos";
+// import CommunityVideos from "../components/HomePageComponents/CommunityVideos";
 
 export default {
   props: {
     user: Object
   },
   components: {
-    OngoingStreams,
-    PreviousVideos,
-    CommunityVideos
+    OngoingStreams
+    // PreviousVideos,
+    // CommunityVideos
   },
   data: () => {
     return {

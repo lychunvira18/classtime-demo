@@ -64,6 +64,7 @@
             class="font-weight-black"
             @click="user.role === 'Student' || user.role === 'device' || is_from_webcam ? startStream() : select_class = true"
             id="startStreamBtn"
+            :disabled="streamTitle === ''"
           >Continue</v-btn>
         </v-card-actions>
       </v-card>
@@ -90,7 +91,13 @@
 
           <v-dialog v-model="select_classes" max-width="800px">
             <template v-slot:activator="{ on }">
-              <v-btn text v-on="on" class="font-weight-black" id="startStreamBtn">Continue</v-btn>
+              <v-btn
+                text
+                v-on="on"
+                class="font-weight-black"
+                id="startStreamBtn"
+                :disabled="selectedDevice === ''"
+              >Continue</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -121,9 +128,7 @@
                   @click="deviceStartStream()"
                 >Continue</v-btn>
                 <v-overlay :value="loading">
-                  <v-progress-circular indeterminate size="100">
-                    <p>Loading</p>
-                  </v-progress-circular>
+                  <v-progress-circular indeterminate size="100"></v-progress-circular>
                 </v-overlay>
               </v-card-actions>
             </v-card>
